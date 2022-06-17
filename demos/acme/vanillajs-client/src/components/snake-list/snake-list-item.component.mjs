@@ -32,18 +32,20 @@ export class SnakeListItemComponent extends component(HTMLTableRowElement) {
   static Template = buildTemplate(trTemplate);
 
   #snakeService = undefined;
+  #router = undefined;
 
-  //TODO: Consider using a mixin to reuse stuff frome ComponentBase
-  //      (You can't inherit here 'cause this has to inherit from HTMLTableRowElement directly.)
-  //      (Another possibility would be: Inherit from ComponentBase, and do some trickery with object.setprototype. )
   constructor(
     template = SnakeListItemComponent.Template,
-    snakeService = SnakeListItemComponent.Services.snakeService
+    snakeService = SnakeListItemComponent.Services.snakeService,
+    router = SnakeListItemComponent.Services.router
   ) {
     super();
     this.#snakeService = snakeService;
+    this.#router = router;
     this.appendChild(template.content.cloneNode(true));
-    this.registerClick('#edit', () => this.edit());
+    this.registerClick('#edit', () =>
+      this.#router.navigateTo(`/snakes/${this.model.id}`)
+    );
     this.registerClick('#delete', () => this.delete());
   }
 
@@ -54,9 +56,9 @@ export class SnakeListItemComponent extends component(HTMLTableRowElement) {
     this.querySelector('#payGrade').innerHTML = this.model.payGrade;
   }
 
-  delete() {
-    alert('delete');
-    this.snakeService.delete(this.model.id);
+  async delete() {
+    await this.#snakeService.delete(this.model.id);
+    this.#router.navigateTo(`/snakes`);
   }
 
   edit() {

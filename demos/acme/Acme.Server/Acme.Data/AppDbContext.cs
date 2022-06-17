@@ -33,6 +33,11 @@ public class AppDbContext : DbContext
             b.ToTable(nameof(WeatherReport));
         });
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder ob)
+    {
+        ob.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    }
 }
 
 /// <summary>

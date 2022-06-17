@@ -18,12 +18,21 @@ export class SnakeService {
     return await response.json();
   }
 
-  async save(snake) {
-    alert(`service saving: ${JSON.stringify(snake)}`);
+  async update(snake) {
+    const url = this.getUrl(snake.id);
+
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(snake),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    //TODO: Make sure things went ok.
+    return;
   }
 
   async delete(snakeId) {
-    const response = await fetch(this.getUrl(snakeId), { method: 'DELETE' });
+    const url = this.getUrl(snakeId);
+    const response = await fetch(url, { method: 'DELETE' });
     //TODO: Make sure things went ok.
     return;
   }

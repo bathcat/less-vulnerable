@@ -3,13 +3,16 @@ import { ComponentBase } from '../../component-base.mjs';
 export class SnakeDetailsComponent extends ComponentBase {
   static Tag = 'avc-snake-details';
   #snakeService = undefined;
+  #router = undefined;
 
   constructor(
     template = SnakeDetailsComponent.Template,
-    snakeService = SnakeDetailsComponent.Services.snakeService
+    snakeService = SnakeDetailsComponent.Services.snakeService,
+    router = SnakeDetailsComponent.Services.router
   ) {
     super(template);
     this.#snakeService = snakeService;
+    this.#router = router;
     this.registerClick('#save', () => this.save());
     this.registerClick('#cancel', () => this.cancel());
   }
@@ -30,15 +33,13 @@ export class SnakeDetailsComponent extends ComponentBase {
   #meannessLevel = this.getInput('#meannessLevel');
   #payGrade = this.getInput('#payGrade');
 
-  save() {
-    this.#snakeService.save(this.model);
-    //TODO: Use the navigator service.... or something
-    navigateTo('/snakes');
+  async save() {
+    await this.#snakeService.update(this.model);
+    this.#router.navigateTo('/snakes');
   }
 
   cancel() {
-    //TODO: Use the navigator service.
-    navigateTo('/snakes');
+    this.#router.navigateTo('/snakes');
   }
 
   get model() {
