@@ -8,6 +8,7 @@ import { init as snakeDetails } from './components/snake-details/snake-details.c
 import { init as signIn } from './components/sign-in/sign-in.component.mjs';
 import { init as register } from './components/register/register.component.mjs';
 import { init as latinTranslator } from './components/latin-translator/latin-translator.component.mjs';
+import { init as page } from './components/page/page.component.mjs';
 
 import { Router } from './router.mjs';
 import { routes } from './routes.mjs';
@@ -27,6 +28,7 @@ const components = [
   signIn,
   register,
   latinTranslator,
+  page,
 ];
 
 const router = new Router(routes);
