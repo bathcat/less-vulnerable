@@ -1,6 +1,10 @@
 export class ComponentBase extends HTMLElement {
   constructor(template) {
     super();
+    this.attachTemplate(template);
+  }
+
+  attachTemplate(template){
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }

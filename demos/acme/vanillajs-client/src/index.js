@@ -18,9 +18,6 @@ import { TranslationService } from './services/translation-service.mjs';
 import { LocalStorageService } from './services/local-storage-service.mjs';
 import { AccountService } from './services/account-service.mjs';
 
-
-
-
 const builders = [
   signIn,
   footer,
@@ -50,12 +47,8 @@ const injectables = {
 
 const elementBuilder = new ElementBuilder(window.customElements, injectables);
 
- 
-
 for (let build of builders) {
   await build(elementBuilder);
 }
-
-window.navigateTo = path => router.navigateTo(path);
 
 router.startWith(window.location.pathname);
