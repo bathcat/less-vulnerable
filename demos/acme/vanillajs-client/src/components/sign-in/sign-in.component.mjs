@@ -1,20 +1,29 @@
 import { fetchTemplate } from '/tools.mjs';
 
-export const init = async ({ window, accountService, router }) => {
-  const template = await fetchTemplate(import.meta.url);
-
-  class SignInComponent extends HTMLElement {
-    constructor() {
+export const init = async ({ window, accountService, router, templateService }) => {
+  //
+  class AcmeElementBase extends HTMLElement {
+    constructor(uri) {
       super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-      this.shadowRoot.querySelector('#cancel').addEventListener('click', () =>
-        this.cancel()
-      );
-      this.shadowRoot.querySelector('#submit').addEventListener('click', () =>
-        this.signIn()
-      );
+      templateService.getComponentTemplate(uri)
+                     .then(template => {
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+      });
+    }
+  }
+
+  class SignInComponent extends AcmeElementBase {
+    constructor() {
+      super(import.meta.url);
+
+      // this.shadowRoot.querySelector('#cancel').addEventListener('click', () =>
+      //   this.cancel()
+      // );
+      // this.shadowRoot.querySelector('#submit').addEventListener('click', () =>
+      //   this.signIn()
+      // );
     }
 
     get login() {
@@ -26,8 +35,9 @@ export const init = async ({ window, accountService, router }) => {
     }
 
     signIn() {
-      this.accountService.login(this.login,this.password)
-                         .then(_=>navigator.navigateTo('/'));
+      this.accountService
+        .login(this.login, this.password)
+        .then(_ => navigator.navigateTo('/'));
     }
 
     cancel() {

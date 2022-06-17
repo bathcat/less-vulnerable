@@ -16,6 +16,7 @@ import { SnakeService } from './services/snake-service.mjs';
 import { TranslationService } from './services/translation-service.mjs';
 import { LocalStorageService } from './services/local-storage-service.mjs';
 import { AccountService } from './account-service.mjs';
+import { TemplateService } from './services/template-service.mjs';
 
 const components = [
   root,
@@ -42,6 +43,7 @@ const injectables = {
   translationService: new TranslationService(),
   localStorageService: new LocalStorageService(),
   snakeService: new SnakeService(apiUrl),
+  templateService: new TemplateService(),
 };
 
 for (let init of components) {
