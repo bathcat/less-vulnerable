@@ -1,9 +1,6 @@
 import { ComponentBase } from '../../component-base.mjs';
 
 export class SignInComponent extends ComponentBase {
-  //TODO: Use symbols for these...
-  static Services = {};
-  static Template = '<h1>Hello World</h1>';
   static Tag = 'avc-sign-in';
 
   #accountService = undefined;

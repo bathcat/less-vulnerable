@@ -28,11 +28,13 @@ export class ElementBuilder{
     this.#services=services;
   }
 
-  async build(component, uri) {
-    component.Template = await fetchTemplate(uri);
+  async build(component, uri,options={}) {
+    if(!component.Template){
+      component.Template = await fetchTemplate(uri);
+    }
+    
     component.Services = this.#services;
-  
-    this.#customElementRegistry.define(component.Tag, component);
+    this.#customElementRegistry.define(component.Tag, component,options);
     return component;
   };
   
