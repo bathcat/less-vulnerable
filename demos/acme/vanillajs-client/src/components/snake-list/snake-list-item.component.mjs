@@ -58,6 +58,7 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
   }
 
   edit() {
+    //TODO: Use the router service.
     navigateTo(`/snakes/${this.model.id}`);
   }
 
