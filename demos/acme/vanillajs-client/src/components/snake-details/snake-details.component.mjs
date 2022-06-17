@@ -18,6 +18,7 @@ export class SnakeDetailsComponent extends ComponentBase {
   }
 
   get key() {
+    //TODO: Something's weird here.
     if (!this.hasAttribute('snakeID')) {
       return null;
     }
@@ -26,6 +27,12 @@ export class SnakeDetailsComponent extends ComponentBase {
 
   connectedCallback() {
     if (!this.key) {
+      this.model = {
+        name: '',
+        color: '',
+        meannessLevel: 0,
+        payGrade: 'TBD',
+      };
       return;
     }
     this.#snakeService.getById(this.key).then(snake => {

@@ -1,7 +1,7 @@
 export class LocalStorageService {
   constructor() {}
 
-   get(key) {
+  get(key) {
     const asString = localStorage.getItem(key);
     if (!asString) {
       return null;
@@ -9,7 +9,7 @@ export class LocalStorageService {
     return JSON.parse(asString);
   }
 
-   set(key, value) {
+  set(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
   }
 

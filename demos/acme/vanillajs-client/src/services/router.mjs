@@ -30,29 +30,30 @@ export class Router {
     const urlSegments = url.split('/').slice(1);
     const routeData = {};
 
-    const matched = this.routes.find(route => {
-      if (route.path === 404) {
-        return false;
-      }
-
-      const routePathSegments = route.path.split('/').slice(1);
-
-      if (routePathSegments.length !== urlSegments.length) {
-        return false;
-      }
-
-      for (let i = 0; i < urlSegments.length; i++) {
-        if (routePathSegments[i].startsWith(':')) {
-          routeData[routePathSegments[i].replace(':', '')] = urlSegments[i];
-          continue;
-        }
-
-        if (routePathSegments[i] !== urlSegments[i]) {
+    const matched =
+      this.routes.find(route => {
+        if (route.path === 404) {
           return false;
         }
-      }
-      return true;
-    }) ?? this.routes.find(r => r.path === 404);
+
+        const routePathSegments = route.path.split('/').slice(1);
+
+        if (routePathSegments.length !== urlSegments.length) {
+          return false;
+        }
+
+        for (let i = 0; i < urlSegments.length; i++) {
+          if (routePathSegments[i].startsWith(':')) {
+            routeData[routePathSegments[i].replace(':', '')] = urlSegments[i];
+            continue;
+          }
+
+          if (routePathSegments[i] !== urlSegments[i]) {
+            return false;
+          }
+        }
+        return true;
+      }) ?? this.routes.find(r => r.path === 404);
 
     return matched.getTemplate(routeData);
   }

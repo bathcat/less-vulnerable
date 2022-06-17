@@ -14,19 +14,9 @@ export class SnakeListComponent extends ComponentBase {
     super(template);
     this.#snakeService = snakeService;
     this.#router = router;
-
-    //TODO: Add this back in.
-    // this.registerClick('#submit', () => this.signIn());
-    //
-    // Here's the markup:
-    //   <button
-    //   class="card-header-icon button is-primary card-header-icon m-1"
-    //   id="create"
-    // >
-    //   <span class="icon is-small">
-    //     <i class="fas fa-plus"></i>
-    //   </span>
-    // </button>
+    this.registerClick('#create', () =>
+      this.#router.navigateTo('/snakes/create')
+    );
   }
 
   connectedCallback() {

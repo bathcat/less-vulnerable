@@ -25,6 +25,10 @@ export const routes = [
       `<avc-snake-details snakeID='${id}'></avc-snake-details>`,
   },
   {
+    path: '/snakes/create',
+    getTemplate: () => `<avc-snake-details></avc-snake-details>`,
+  },
+  {
     path: 404,
     getTemplate: () => '<h1>Not found</h1>',
   },

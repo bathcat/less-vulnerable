@@ -5,7 +5,7 @@ export const styles = `
 </style>
 `;
 
-export function buildComponentTemplate(contents){
+export function buildComponentTemplate(contents) {
   const template = window.document.createElement('template');
   template.innerHTML = styles + contents;
   return template;
