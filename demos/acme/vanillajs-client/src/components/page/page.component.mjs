@@ -6,6 +6,13 @@ export class PageComponent extends ComponentBase {
   constructor(template = PageComponent.Template) {
     super(template);
   }
+
+  connectedCallback() {
+    if (this.hasAttribute('title')) {
+      this.shadowRoot.querySelector('#title').innerHTML =
+        this.getAttribute('title');
+    }
+  }
 }
 
 export const build = builder =>
