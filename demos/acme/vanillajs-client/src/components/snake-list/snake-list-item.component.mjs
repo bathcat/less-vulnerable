@@ -1,5 +1,5 @@
 import { buildTemplate } from '../../element-builder.mjs';
-import { ComponentBase } from '../../component-base.mjs';
+import { component } from '../../component-base.mjs';
 
 export const trTemplate = `
   <th id="name"></th>
@@ -27,7 +27,7 @@ export const trTemplate = `
   </td>
 `;
 
-export class SnakeListItemComponent extends HTMLTableRowElement {
+export class SnakeListItemComponent extends component(HTMLTableRowElement) {
   static Tag = 'avc-snake-list-item';
   static Template = buildTemplate(trTemplate);
 
@@ -36,10 +36,15 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
   //TODO: Consider using a mixin to reuse stuff frome ComponentBase
   //      (You can't inherit here 'cause this has to inherit from HTMLTableRowElement directly.)
   //      (Another possibility would be: Inherit from ComponentBase, and do some trickery with object.setprototype. )
-  constructor(snakeService = SnakeListItemComponent.Services.snakeService) {
+  constructor(
+    template = SnakeListItemComponent.Template,
+    snakeService = SnakeListItemComponent.Services.snakeService
+  ) {
     super();
     this.#snakeService = snakeService;
-    this.appendChild(SnakeListItemComponent.Template.content.cloneNode(true));
+    this.appendChild(template.content.cloneNode(true));
+    this.registerClick('#edit', () => this.edit());
+    this.registerClick('#delete', () => this.delete());
   }
 
   connectedCallback() {
@@ -47,22 +52,20 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
     this.querySelector('#color').innerHTML = this.model.color;
     this.querySelector('#meannessLevel').innerHTML = this.model.meannessLevel;
     this.querySelector('#payGrade').innerHTML = this.model.payGrade;
-    this.querySelector('#edit').addEventListener('click', () => this.edit());
-    this.querySelector('#delete').addEventListener('click', () =>
-      this.delete()
-    );
   }
 
   delete() {
-    this.snakeService.delete(this.model.id).then(() => navigateTo('/snakes'));
+    alert('delete');
+    this.snakeService.delete(this.model.id);
   }
 
   edit() {
+    alert('edit');
     //TODO: Use the router service.
     navigateTo(`/snakes/${this.model.id}`);
   }
 
-  _model = {
+  #model = {
     id: '00000000-0000-0000-0000-000000000000',
     name: '',
     color: '',
@@ -70,11 +73,11 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
   };
 
   get model() {
-    return this._model;
+    return this.#model;
   }
 
   set model(value) {
-    this._model = value;
+    this.#model = value;
   }
 }
 
