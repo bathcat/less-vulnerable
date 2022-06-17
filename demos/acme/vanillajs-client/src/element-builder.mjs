@@ -5,10 +5,14 @@ export const styles = `
 </style>
 `;
 
-export function buildComponentTemplate(contents){
+export function buildTemplate(contents) {
   const template = window.document.createElement('template');
-  template.innerHTML = styles + contents;
+  template.innerHTML = contents;
   return template;
+}
+
+export function buildComponentTemplate(contents) {
+  return buildTemplate(styles + contents);
 }
 
 export async function fetchTemplate(current) {
@@ -19,25 +23,21 @@ export async function fetchTemplate(current) {
   return buildComponentTemplate(contents);
 }
 
-
-export class ElementBuilder{
-  #services={};
-  #customElementRegistry={};
-  constructor(customElementRegistry, services){
-    this.#customElementRegistry=customElementRegistry;
-    this.#services=services;
+export class ElementBuilder {
+  #services = {};
+  #customElementRegistry = {};
+  constructor(customElementRegistry, services) {
+    this.#customElementRegistry = customElementRegistry;
+    this.#services = services;
   }
 
-  async build(component, uri,options={}) {
-    if(!component.Template){
+  async build(component, uri, options = {}) {
+    if (!component.Template) {
       component.Template = await fetchTemplate(uri);
     }
-    
+
     component.Services = this.#services;
-    this.#customElementRegistry.define(component.Tag, component,options);
+    this.#customElementRegistry.define(component.Tag, component, options);
     return component;
-  };
-  
-
-
-};
+  }
+}

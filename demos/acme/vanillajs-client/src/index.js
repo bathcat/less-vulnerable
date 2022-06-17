@@ -3,7 +3,7 @@ import { build as footer } from './components/footer/footer.component.mjs';
 import { build as home } from './components/home/home.component.mjs';
 import { build as root } from './components/root/root.component.mjs';
 import { init as snakeList } from './components/snake-list/snake-list.component.mjs';
-import { init as snakeListItem } from './components/snake-list/snake-list-item.component.mjs';
+import { build as snakeListItem } from './components/snake-list/snake-list-item.component.mjs';
 import { build as snakeDetails } from './components/snake-details/snake-details.component.mjs';
 import { build as signIn } from './components/sign-in/sign-in.component.mjs';
 import { build as register } from './components/register/register.component.mjs';
@@ -19,7 +19,7 @@ import { LocalStorageService } from './services/local-storage-service.mjs';
 import { AccountService } from './account-service.mjs';
 import { fetchTemplate } from './services/template-service.mjs';
 
-const components_old_style = [snakeList, snakeListItem];
+const components_old_style = [snakeList];
 
 const builders = [
   signIn,
@@ -31,6 +31,7 @@ const builders = [
   root,
   snakeDetails,
   register,
+  snakeListItem,
 ];
 
 const router = new Router(routes);
