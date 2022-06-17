@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acme: Your Source for Words!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="global-styles.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar"
+         role="navigation"
+         aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item"
+               href="/">
+                <img src="assets/logo.png" />
+            </a>
+        </div>
+
+        <div id="navbarBasicExample"
+             class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item"
+                   href="/">
+                    Home
+                </a>
+            </div>
+
+            <div class="navbar-end">
+
+            </div>
+        </div>
+    </nav>
+
+
+    <main class='is-fullheight'>
+        <div class="card m-5">
+            <header class="card-header">
+                <p class="card-header-title">
+                    Blog Post
+                </p>
+                <button class="card-header-icon" aria-label="more options">
+                    <span class="icon">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </header>
+            <div class="card-content">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input id="a-title" class="input" type="text" placeholder="e.g. The time I went to jail.">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Content</label>
+                        <div class="control">
+                            <textarea id="a-content" class="textarea" placeholder="I remember it like yesterday..."></textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link" type="button" onclick="submitPost()">Post</button>
+                        </div>
+                        <div class="control">
+                            <a 
+                               class="button is-link is-light"
+                               href="/"
+                            >
+                              Cancel
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+<script src="index.js"
+        defer
+        ></script>
+</html>

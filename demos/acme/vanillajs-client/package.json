@@ -1,0 +1,25 @@
+{
+  "name": "vanillajs-client",
+  "version": "1.0.0",
+  "description": "Client app for acme web services, written in modern vanilla javascript. Node is only used for workflow.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "start http://localhost:3000/ & node ./server/serve.js",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.4.6",
+    "jest": "^28.1.0",
+    "prettier": "2.6.2"
+  }
+}

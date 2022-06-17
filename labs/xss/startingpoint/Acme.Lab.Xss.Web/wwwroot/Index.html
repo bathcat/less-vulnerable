@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acme: Your Source for Words!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="global-styles.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar"
+         role="navigation"
+         aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item"
+               href="/">
+                <img src="assets/logo.png" />
+            </a>
+        </div>
+
+        <div id="navbarBasicExample"
+             class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item"
+                   href="/">
+                    Home
+                </a>
+            </div>
+
+            <div class="navbar-end">
+
+            </div>
+        </div>
+    </nav>
+    <main class='is-fullheight'>
+        <a 
+           class="button is-danger is-rounded is-primary m-5"
+           href="blog-post.html"
+        >
+            <span>New</span>
+            <span class="icon is-small">
+                <i class="fas fa-plus"></i>
+            </span>
+        </a>
+
+        <div id="a-panel">
+            <div class="card">
+                <header class="card-header">
+                    <h2 class="card-header-title">
+                        Posts
+                    </h2>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Hang tight. We're loading up some great posts just for you.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+</body>
+   <script src="index.js"></script>
+   <script type="text/javascript">
+       refreshPosts();
+   </script>
+</html>

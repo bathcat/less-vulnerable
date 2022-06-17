@@ -1,0 +1,1 @@
+Start-Process npm -WorkingDirectory .\acme\ng-client\ -ArgumentList 'run', 'start' 

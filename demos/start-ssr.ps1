@@ -1,0 +1,1 @@
+Start-Process dotnet -WorkingDirectory .\acme\Acme.Server\Acme.Web\ -ArgumentList 'run','start'

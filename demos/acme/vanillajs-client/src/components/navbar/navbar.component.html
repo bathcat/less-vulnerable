@@ -1,0 +1,64 @@
+<nav
+  class="navbar"
+  role="navigation"
+  aria-label="main navigation"
+>
+  <div class="navbar-brand">
+    <a
+      class="navbar-item"
+      href="/"
+    >
+      <img src="assets/logo.png" />
+    </a>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a
+        class="navbar-item"
+        href="/"
+      >
+        Home
+      </a>
+
+      <span class="navbar-item">
+        <button
+          class="button"
+          role="link"
+          onclick="navigateTo('/snakes')"
+        >
+          Snakes
+        </button>
+      </span>
+
+      <span class="navbar-item">
+        <button
+          class="button"
+          role="link"
+          onclick="navigateTo('/latin-translator')"
+        >
+          Latin
+        </button>
+      </span>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <button
+            class="button is-primary"
+            onclick="navigateTo('/register')"
+          >
+            <strong>Register</strong>
+          </button>
+          <button
+            class="button is-light"
+            onclick="navigateTo('/sign-in')"
+          >
+            Sign in
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>WebClient</title>
+    <base href="/" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="favicon.ico"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <span id="root"></span>
+  </body>
+  <script type="text/javascript">
+    const id = '00000000-0000-0000-0000-200000000000';
+    const host ='http://localhost:5285';
+
+    document.getElementById("root").innerHTML = `
+        <form action="${host}/Snakes/Delete/${id}" method="post">
+            <input type="hidden" id="ID" name="ID" value="${id}">
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+    
+    `;
+  </script>
+</html>

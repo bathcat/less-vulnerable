@@ -1,0 +1,51 @@
+<style>
+  @import 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css';
+  @import 'https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css';
+</style>
+<div class="card m-5">
+  <header class="card-header">
+    <h1 class="card-header-title title is-3">Latin Translator</h1>
+  </header>
+  <div class="card-content">
+    <div class="columns">
+      <div class="column">
+        <div class="select">
+          <select>
+            <option>English</option>
+          </select>
+        </div>
+        <textarea
+          class="textarea"
+          placeholder="Enter text"
+          rows="10"
+          id="english"
+        ></textarea>
+      </div>
+      <div class="column is-narrow">
+        <button
+          class="button is-primary"
+          id="translate"
+        >
+          <span class="icon">
+            <i class="fas fa-language"></i>
+          </span>
+          <span>Translate</span>
+        </button>
+      </div>
+      <div class="column">
+        <div class="select">
+          <select>
+            <option>Latin</option>
+          </select>
+        </div>
+        <textarea
+          class="textarea"
+          placeholder="Translation"
+          readonly
+          rows="10"
+          id="latin"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+</div>
