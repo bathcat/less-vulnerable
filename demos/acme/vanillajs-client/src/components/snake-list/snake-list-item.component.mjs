@@ -31,6 +31,10 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
   static Template = buildTemplate(trTemplate);
 
   #snakeService = undefined;
+
+  //TODO: Consider using a mixin to reuse stuff frome ComponentBase
+  //      (You can't inherit here 'cause this has to inherit from HTMLTableRowElement directly.)
+  //      (Another possibility would be: Inherit from ComponentBase, but )
   constructor(snakeService = SnakeListItemComponent.Services.snakeService) {
     super();
     this.#snakeService = snakeService;
@@ -73,6 +77,6 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
 }
 
 export const build = builder =>
-  builder.buildComponent(SnakeListItemComponent, import.meta.url, {
+  builder.buildInlineComponent(SnakeListItemComponent, {
     extends: 'tr',
   });

@@ -32,10 +32,11 @@ export class ElementBuilder {
   }
 
   async buildComponent(component, uri, options = {}) {
-    if (!component.Template) {
-      component.Template = await fetchTemplate(uri);
-    }
+    component.Template = await fetchTemplate(uri);
+    return this.buildInlineComponent(component, options);
+  }
 
+  buildInlineComponent(component, options = {}) {
     component.Services = this.#services;
     this.#customElementRegistry.define(component.Tag, component, options);
     return component;
