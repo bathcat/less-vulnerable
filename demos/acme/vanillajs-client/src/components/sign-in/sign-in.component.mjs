@@ -1,45 +1,22 @@
-import { fetchTemplate } from '/tools.mjs';
 
 export const init = async ({
   window,
   router,
   fetchTemplate,
   accountService,
+  ComponentBase
 }) => {
-  //
-  class AcmeElementBase extends HTMLElement {
-    constructor(template) {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
 
-    querySelector = selector => this.shadowRoot.querySelector(selector);
-
-    getInput(selector) {
-      const element = this.querySelector(selector);
-      if (!element) {
-        throw new Error('Cant find element.');
-      }
-      return {
-        get: () => element.value,
-        set: val => (element.value = val),
-      };
-    }
-
-    registerClick = (selector, callback) =>
-      this.querySelector(selector).addEventListener('click', () => callback());
-  }
-
-  //
   const _template = await fetchTemplate(import.meta.url);
 
-  class SignInComponent extends AcmeElementBase {
+  class SignInComponent extends ComponentBase {
     #accountService = undefined;
+    #router = undefined;
 
-    constructor() {
+    constructor(accountS = accountService,routerS=router) {
       super(_template);
-      this.#accountService = accountService;
+      this.#accountService = accountS;
+      this.#router=routerS;
       this.registerClick('#submit', () => this.signIn());
       this.registerClick('#cancel', () => this.cancel());
     }
@@ -49,12 +26,11 @@ export const init = async ({
 
     signIn() {
       this.#accountService
-        .login(this.#login.get(), this.#password.get())
-        .then(_ => navigator.navigateTo('/'));
+        .login(this.#login.get(), this.#password.get());
     }
 
     cancel() {
-      router.navigateTo('/');
+      this.#router.navigateTo('/');
     }
   }
   window.customElements.define('avc-sign-in', SignInComponent);
