@@ -9,9 +9,20 @@ export const init = async ({ window, snakeService }) => {
       super();
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.shadowRoot
-        .querySelector('#create')
-        .addEventListener('click', () => this.create());
+      //TODO: Add this back in.
+      // this.shadowRoot
+      //   .querySelector('#create')
+      //   .addEventListener('click', () => this.create());
+      //
+      // Here's the markup:
+      //   <button
+      //   class="card-header-icon button is-primary card-header-icon m-1"
+      //   id="create"
+      // >
+      //   <span class="icon is-small">
+      //     <i class="fas fa-plus"></i>
+      //   </span>
+      // </button>
     }
 
     connectedCallback() {
