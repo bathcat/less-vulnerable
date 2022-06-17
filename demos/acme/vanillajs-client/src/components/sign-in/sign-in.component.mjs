@@ -1,8 +1,9 @@
 import { Component } from '../../component.mjs';
 
+export const Tag = 'avc-sign-in';
+
 export class SignInComponent extends Component {
   //TODO: Use symbols for these...
-  static Tag = 'avc-sign-in';
   static Services = {};
   static Template = '<h1>Hello World</h1>';
 
@@ -42,5 +43,5 @@ export const init = async ({
   SignInComponent.Template = await fetchTemplate(import.meta.url);
   SignInComponent.Services = { router, accountService };
 
-  window.customElements.define(SignInComponent.Tag, SignInComponent);
+  window.customElements.define(Tag, SignInComponent);
 };
