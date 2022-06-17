@@ -19,7 +19,7 @@ import { AccountService } from './account-service.mjs';
 import {
   fetchTemplate,
 } from './services/template-service.mjs';
-import { Component } from './component.mjs';
+
 
 const components = [
   root,
@@ -47,7 +47,6 @@ const injectables = {
   localStorageService: new LocalStorageService(),
   snakeService: new SnakeService(apiUrl),
   fetchTemplate,
-  Component,
 };
 
 for (let init of components) {
