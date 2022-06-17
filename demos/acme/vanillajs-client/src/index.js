@@ -11,13 +11,13 @@ import { build as latinTranslator } from './components/latin-translator/latin-tr
 import { build as page } from './components/page/page.component.mjs';
 
 import { ElementBuilder } from './element-builder.mjs';
-import { Router } from './router.mjs';
+import { Router } from './services/router.mjs';
 import { routes } from './routes.mjs';
 import { SnakeService } from './services/snake-service.mjs';
 import { TranslationService } from './services/translation-service.mjs';
 import { LocalStorageService } from './services/local-storage-service.mjs';
-import { AccountService } from './account-service.mjs';
-import { fetchTemplate } from './services/template-service.mjs';
+import { AccountService } from './services/account-service.mjs';
+
 
 
 
@@ -46,7 +46,6 @@ const injectables = {
   translationService: new TranslationService(),
   localStorageService: new LocalStorageService(),
   snakeService: new SnakeService(apiUrl),
-  fetchTemplate, //TODO: get rid of this.
 };
 
 const elementBuilder = new ElementBuilder(window.customElements, injectables);
