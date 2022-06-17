@@ -9,4 +9,5 @@ export class NavbarComponent extends ComponentBase {
   }
 }
 
-export const build = builder => builder.build(NavbarComponent, import.meta.url);
+export const build = builder =>
+  builder.buildComponent(NavbarComponent, import.meta.url);

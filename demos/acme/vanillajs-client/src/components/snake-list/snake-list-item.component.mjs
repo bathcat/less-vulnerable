@@ -73,6 +73,6 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
 }
 
 export const build = builder =>
-  builder.build(SnakeListItemComponent, import.meta.url, {
+  builder.buildComponent(SnakeListItemComponent, import.meta.url, {
     extends: 'tr',
   });

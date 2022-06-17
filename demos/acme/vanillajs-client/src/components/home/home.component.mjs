@@ -8,4 +8,5 @@ export class HomeComponent extends ComponentBase {
   }
 }
 
-export const build = builder => builder.build(HomeComponent, import.meta.url);
+export const build = builder =>
+  builder.buildComponent(HomeComponent, import.meta.url);

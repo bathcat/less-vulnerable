@@ -8,4 +8,5 @@ export class FooterComponent extends ComponentBase {
   }
 }
 
-export const build = builder => builder.build(FooterComponent, import.meta.url);
+export const build = builder =>
+  builder.buildComponent(FooterComponent, import.meta.url);

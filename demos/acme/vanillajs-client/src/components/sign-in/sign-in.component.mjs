@@ -30,4 +30,5 @@ export class SignInComponent extends ComponentBase {
   }
 }
 
-export const build = builder => builder.build(SignInComponent, import.meta.url);
+export const build = builder =>
+  builder.buildComponent(SignInComponent, import.meta.url);

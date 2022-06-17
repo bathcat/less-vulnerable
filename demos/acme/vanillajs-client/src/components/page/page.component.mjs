@@ -8,4 +8,5 @@ export class PageComponent extends ComponentBase {
   }
 }
 
-export const build = builder => builder.build(PageComponent, import.meta.url);
+export const build = builder =>
+  builder.buildComponent(PageComponent, import.meta.url);

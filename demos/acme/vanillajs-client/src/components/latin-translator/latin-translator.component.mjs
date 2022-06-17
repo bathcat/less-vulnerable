@@ -34,4 +34,4 @@ export class LatinTranslatorComponent extends ComponentBase {
 }
 
 export const build = builder =>
-  builder.build(LatinTranslatorComponent, import.meta.url);
+  builder.buildComponent(LatinTranslatorComponent, import.meta.url);

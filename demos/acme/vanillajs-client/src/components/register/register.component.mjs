@@ -9,4 +9,4 @@ export class RegisterComponent extends ComponentBase {
 }
 
 export const build = builder =>
-  builder.build(RegisterComponent, import.meta.url);
+  builder.buildComponent(RegisterComponent, import.meta.url);

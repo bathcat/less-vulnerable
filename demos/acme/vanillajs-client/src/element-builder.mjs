@@ -31,7 +31,7 @@ export class ElementBuilder {
     this.#services = services;
   }
 
-  async build(component, uri, options = {}) {
+  async buildComponent(component, uri, options = {}) {
     if (!component.Template) {
       component.Template = await fetchTemplate(uri);
     }
