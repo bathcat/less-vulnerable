@@ -1,12 +1,12 @@
-export const init = async ({ window, fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class RegisterComponent extends HTMLElement {
-    constructor() {
-      super();
-      this.appendChild(template.content.cloneNode(true));
-    }
+export class RegisterComponent extends ComponentBase {
+  static Tag = 'avc-register';
+
+  constructor(template = RegisterComponent.Template) {
+    super(template);
   }
+}
 
-  window.customElements.define('avc-register', RegisterComponent);
-};
+export const build = builder =>
+  builder.build(RegisterComponent, import.meta.url);
