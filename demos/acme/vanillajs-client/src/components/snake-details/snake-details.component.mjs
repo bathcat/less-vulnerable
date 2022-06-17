@@ -13,9 +13,8 @@ export class SnakeDetailsComponent extends ComponentBase {
     super(template);
     this.#snakeService = snakeService;
     this.#router = router;
-    this.registerClick('#save', () => this.save());
-    this.registerClick('#cancel', () => this.cancel());
     this._bindInputProperties(['name', 'color', 'meannessLevel', 'payGrade']);
+    this._bindClickHandlers(['save','cancel']);
   }
 
   get key() {

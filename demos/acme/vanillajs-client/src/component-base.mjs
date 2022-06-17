@@ -14,6 +14,20 @@ export const component = base =>
     registerClick = (selector, callback) =>
       this.querySelector(selector).addEventListener('click', () => callback());
 
+    // Adds an on-click event listener to a button with the
+    //   specified id, calling a function with the same name.
+    _bindClickHandler(id) {
+      const element = this.querySelector(`#${id}`);
+      element.addEventListener('click', () => this[id]());
+    }
+
+    _bindClickHandlers(ids) {
+      ids.forEach(id => this._bindClickHandler(id));
+    }
+
+    //Adds a property with the specified name,
+    // binding it to the value of an <input> element
+    // with a matching id.
     _bindInputProperty(id) {
       const element = this.querySelector(`#${id}`);
       Object.defineProperty(this, id, {
@@ -27,10 +41,8 @@ export const component = base =>
     }
 
     _bindInputProperties(ids) {
-      ids.forEach(id=>this._bindInputProperty(id));
+      ids.forEach(id => this._bindInputProperty(id));
     }
-
-
   };
 
 export class ComponentBase extends component(HTMLElement) {
