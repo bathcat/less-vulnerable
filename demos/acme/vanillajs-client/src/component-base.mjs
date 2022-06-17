@@ -13,6 +13,24 @@ export const component = base =>
 
     registerClick = (selector, callback) =>
       this.querySelector(selector).addEventListener('click', () => callback());
+
+    _bindInputProperty(id) {
+      const element = this.querySelector(`#${id}`);
+      Object.defineProperty(this, id, {
+        get() {
+          return element.value;
+        },
+        set(value) {
+          element.value = value;
+        },
+      });
+    }
+
+    _bindInputProperties(ids) {
+      ids.forEach(id=>this._bindInputProperty(id));
+    }
+
+
   };
 
 export class ComponentBase extends component(HTMLElement) {
@@ -20,6 +38,7 @@ export class ComponentBase extends component(HTMLElement) {
     super();
     this.attachTemplate(template);
   }
+
   attachTemplate(template) {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(template.content.cloneNode(true));

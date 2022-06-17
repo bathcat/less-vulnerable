@@ -15,6 +15,7 @@ export class SnakeDetailsComponent extends ComponentBase {
     this.#router = router;
     this.registerClick('#save', () => this.save());
     this.registerClick('#cancel', () => this.cancel());
+    this._bindInputProperties(['name', 'color', 'meannessLevel', 'payGrade']);
   }
 
   get key() {
@@ -40,11 +41,6 @@ export class SnakeDetailsComponent extends ComponentBase {
     });
   }
 
-  #name = this.getInput('#name');
-  #color = this.getInput('#color');
-  #meannessLevel = this.getInput('#meannessLevel');
-  #payGrade = this.getInput('#payGrade');
-
   async save() {
     await this.#snakeService.update(this.model);
     this.#router.navigateTo('/snakes');
@@ -57,18 +53,18 @@ export class SnakeDetailsComponent extends ComponentBase {
   get model() {
     return {
       id: this.key,
-      name: this.#name.get(),
-      color: this.#color.get(),
-      meannessLevel: this.#meannessLevel.get(),
-      payGrade: this.#payGrade.get(),
+      name: this.name,
+      color: this.color,
+      meannessLevel: this.meannessLevel,
+      payGrade: this.payGrade,
     };
   }
 
   set model(value) {
-    this.#name.set(value.name);
-    this.#color.set(value.color);
-    this.#meannessLevel.set(value.meannessLevel);
-    this.#payGrade.set(value.payGrade);
+    this.name = value.name;
+    this.color = value.color;
+    this.meannessLevel = value.meannessLevel;
+    this.payGrade = value.payGrade;
   }
 }
 
