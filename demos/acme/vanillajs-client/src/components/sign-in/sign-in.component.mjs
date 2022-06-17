@@ -4,12 +4,12 @@ export const init = async ({
   router,
   fetchTemplate,
   accountService,
-  ComponentBase
+  Component
 }) => {
 
   const _template = await fetchTemplate(import.meta.url);
 
-  class SignInComponent extends ComponentBase {
+  class SignInComponent extends Component {
     #accountService = undefined;
     #router = undefined;
 
