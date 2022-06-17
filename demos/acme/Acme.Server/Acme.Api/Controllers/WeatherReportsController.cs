@@ -13,9 +13,7 @@ public class WeatherReportsController : ControllerBase
 {
     private readonly IRepository<WeatherReport, Guid> service;
 
-    public WeatherReportsController(
-        IRepository<WeatherReport, Guid> service
-    )
+    public WeatherReportsController(IRepository<WeatherReport, Guid> service)
     {
         this.service = service;
     }
@@ -29,7 +27,8 @@ public class WeatherReportsController : ControllerBase
 
     [Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpPut("{id}")]
-    public Task<WeatherReport> Put(Guid id, [FromBody] WeatherReport value) => this.service.Update(value);
+    public Task<WeatherReport> Put(Guid id, [FromBody] WeatherReport value) =>
+        this.service.Update(value);
 
     [Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpDelete("{id}")]

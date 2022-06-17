@@ -4,17 +4,13 @@ using System.Threading.Tasks;
 
 namespace Acme.Web;
 
-
-
 [ApiController]
 [Route("[controller]")]
 public class AuthenticationRequestsController : ControllerBase
 {
     private readonly ISecurityService securityService;
 
-    public AuthenticationRequestsController(
-        ISecurityService service
-    )
+    public AuthenticationRequestsController(ISecurityService service)
     {
         this.securityService = service;
     }

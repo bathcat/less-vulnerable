@@ -2,7 +2,6 @@ using System;
 
 namespace Acme.Core
 {
-
     public class SnakeInfo
     {
         public Guid ID { get; init; } = Guid.NewGuid();
@@ -21,15 +20,14 @@ namespace Acme.Core
         public string Color { get; init; } = String.Empty;
         public int MeannessLevel { get; init; }
     }
-
 }
 
 namespace Acme.Core.Extensions
 {
     public static class SnakeExtensions
     {
-        public static SnakeInfo ToSnakeInfo(this Snake snake, string paygrade)
-            => new SnakeInfo
+        public static SnakeInfo ToSnakeInfo(this Snake snake, string paygrade) =>
+            new SnakeInfo
             {
                 ID = snake.ID,
                 Name = snake.Name,
@@ -37,8 +35,5 @@ namespace Acme.Core.Extensions
                 MeannessLevel = snake.MeannessLevel,
                 PayGrade = paygrade,
             };
-
-
     }
-
 }

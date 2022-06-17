@@ -12,10 +12,7 @@ public class BeverageRepository : IRepository<Beverage, Guid>
 
     public BeverageRepository(AppDbContext context) => this.context = context;
 
-    private DbSet<Beverage> Beverages
-        => this.context.Beverages!;
-
-
+    private DbSet<Beverage> Beverages => this.context.Beverages!;
 
     public async Task<Beverage> Create(Beverage original)
     {
@@ -24,16 +21,12 @@ public class BeverageRepository : IRepository<Beverage, Guid>
         return result.Entity;
     }
 
-
-
     public async Task<Beverage> Update(Beverage original)
     {
         var persisted = this.Beverages.Update(original);
         await this.context.SaveChangesAsync();
         return persisted.Entity;
     }
-
-
 
     public async Task<Beverage?> Remove(Guid id)
     {
@@ -48,7 +41,6 @@ public class BeverageRepository : IRepository<Beverage, Guid>
         return persisted.Entity;
     }
 
-
     public Task<Beverage?> Get(Guid id) => this.Beverages.SingleOrDefaultAsync(r => r.ID == id);
 
     public async Task<IEnumerable<Beverage>> Get()
@@ -56,7 +48,4 @@ public class BeverageRepository : IRepository<Beverage, Guid>
         var results = await this.Beverages.ToListAsync();
         return results;
     }
-
-
-
 }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Acme.Hosting;
 
-
 public class AppDataBootstrapper
 {
     private readonly AppDbContext context;
@@ -60,7 +59,6 @@ public class AppDataBootstrapper
 
     public static IEnumerable<WeatherReport> GetSeedWeatherReports()
     {
-
         yield return new WeatherReport
         {
             Date = DateTime.Parse("2021-12-29"),
@@ -91,7 +89,6 @@ public class AppDataBootstrapper
         };
     }
 
-
     public static IEnumerable<Beverage> GetSeedBeverages()
     {
         yield return new Beverage
@@ -107,7 +104,4 @@ public class AppDataBootstrapper
             Description = "Simpsons beer.",
         };
     }
-
-
-
 }

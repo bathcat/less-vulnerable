@@ -13,20 +13,16 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
 
     public SnakeRepository(AppDbContext context) => this.context = context;
 
-    private DbSet<SnakeInfo> Snakes
-        => this.context.Snakes!;
+    private DbSet<SnakeInfo> Snakes => this.context.Snakes!;
 
-    private DatabaseFacade Database
-       => this.context.Database!;
+    private DatabaseFacade Database => this.context.Database!;
 
     ///////  Create  /////////
 
     //TODO: Create with a sproc.
 
 
-    public Task<SnakeInfo> Create(SnakeInfo original)
-       => this.Create_SqlRaw(original);
-
+    public Task<SnakeInfo> Create(SnakeInfo original) => this.Create_SqlRaw(original);
 
     private async Task<SnakeInfo> Create_EF(SnakeInfo original)
     {
@@ -37,7 +33,8 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
 
     private async Task<SnakeInfo> Create_SqlRaw(SnakeInfo original)
     {
-        var sql = $@"
+        var sql =
+            $@"
             INSERT [App].[Snake]
             VALUES ('{original.ID}', '{original.Name}', '{original.Color}',{original.MeannessLevel});";
 
@@ -49,10 +46,10 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
     {
         using var connection = this.Database.GetDbConnection();
         using var command = connection.CreateCommand();
-        command.CommandText = $@"
+        command.CommandText =
+            $@"
             INSERT [App].[Snake]
             VALUES (@id, @name, @color,@meanness);";
-
 
         var idParameter = command.CreateParameter();
         idParameter.ParameterName = "id";
@@ -78,13 +75,10 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
         meannessParameter.DbType = System.Data.DbType.Int32;
         command.Parameters.Add(meannessParameter);
 
-
         await connection.OpenAsync();
         var _ = await command.ExecuteNonQueryAsync();
         return original;
     }
-
-
 
     //////  \create  //////////
 
@@ -96,7 +90,6 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
         await this.context.SaveChangesAsync();
         return persisted.Entity;
     }
-
 
     public async Task<SnakeInfo?> Remove(Guid id)
     {
@@ -111,7 +104,6 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
         return persisted.Entity;
     }
 
-
     public Task<SnakeInfo?> Get(Guid id) => this.Snakes.SingleOrDefaultAsync(r => r.ID == id);
 
     public async Task<IEnumerable<SnakeInfo>> Get()
@@ -119,7 +111,4 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
         var results = await this.Snakes.ToListAsync();
         return results;
     }
-
-
-
 }

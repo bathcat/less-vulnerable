@@ -6,7 +6,6 @@ namespace Acme.Hosting;
 
 public static class ServiceProviderExtensions
 {
-
     public static async Task PopulateDataAsync(this IServiceProvider provider)
     {
         using var scope = provider.CreateScope();
@@ -15,11 +14,6 @@ public static class ServiceProviderExtensions
         await scope.PopulateIdentityData();
     }
 
-    public static void PopulateData(this IServiceProvider provider)
-       => provider.PopulateDataAsync().Wait();
-
-
-
-
-
+    public static void PopulateData(this IServiceProvider provider) =>
+        provider.PopulateDataAsync().Wait();
 }

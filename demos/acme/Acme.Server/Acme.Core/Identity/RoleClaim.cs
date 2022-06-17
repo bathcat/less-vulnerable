@@ -3,13 +3,4 @@ using System;
 
 namespace Acme.Core.Identity;
 
-
-public class RoleClaim : IdentityRoleClaim<Guid>
-{
-
-}
-
-
-
-
-
+public class RoleClaim : IdentityRoleClaim<Guid> { }

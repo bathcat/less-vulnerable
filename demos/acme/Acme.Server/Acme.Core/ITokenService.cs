@@ -2,10 +2,8 @@
 
 namespace Acme.Core;
 
-
-
 public interface ITokenService
 {
-   string BuildToken(User user);
-   bool ValidateToken(string token);
+    string BuildToken(User user);
+    bool ValidateToken(string token);
 }

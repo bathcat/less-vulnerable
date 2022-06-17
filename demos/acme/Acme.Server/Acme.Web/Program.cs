@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Acme;
 
-
 public class Program
 {
-
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -29,49 +27,45 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
         app.Run();
     }
 
-
-
-
-    public static void ConfigureServices(IServiceCollection services, ConfigurationManager configuration)
+    public static void ConfigureServices(
+        IServiceCollection services,
+        ConfigurationManager configuration
+    )
     {
         services.ConfigurePersistance(configuration.GetConnectionString("DefaultConnection"));
         services.AddRepositories();
 
-        services.Configure<IdentityOptions>(options =>
-        {
-
-        });
+        services.Configure<IdentityOptions>(options => { });
 
         services.AddMvc();
 
-        services.AddIdentityCore<Acme.Core.Identity.User>()
+        services
+            .AddIdentityCore<Acme.Core.Identity.User>()
             .AddRoles<Acme.Core.Identity.Role>()
             .AddEntityFrameworkStores<Acme.Identity.IdentityDbContext>()
             .AddSignInManager()
             .AddDefaultTokenProviders();
 
-        services.AddAuthentication(o =>
-        {
-            o.DefaultScheme = IdentityConstants.ApplicationScheme;
-            o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-        })
-        .AddIdentityCookies(o => { });
+        services
+            .AddAuthentication(o =>
+            {
+                o.DefaultScheme = IdentityConstants.ApplicationScheme;
+                o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddIdentityCookies(o => { });
 
         services.AddAuthorization(options =>
         {
             options.FallbackPolicy = new AuthorizationPolicyBuilder()
-                                         .RequireAuthenticatedUser()
-                                         .Build();
+                .RequireAuthenticatedUser()
+                .Build();
         });
 
         services.AddControllersWithViews();
     }
-
 }

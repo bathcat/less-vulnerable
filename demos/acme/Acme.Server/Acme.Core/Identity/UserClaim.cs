@@ -3,9 +3,4 @@ using System;
 
 namespace Acme.Core.Identity;
 
-
-
-public class UserClaim : IdentityUserClaim<Guid>
-{
-
-}
+public class UserClaim : IdentityUserClaim<Guid> { }

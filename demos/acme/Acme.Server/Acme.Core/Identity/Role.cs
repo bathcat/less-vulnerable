@@ -3,7 +3,4 @@ using System;
 
 namespace Acme.Core.Identity;
 
-
-public class Role : IdentityRole<Guid>
-{
-}
+public class Role : IdentityRole<Guid> { }

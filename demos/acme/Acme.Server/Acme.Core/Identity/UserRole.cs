@@ -3,16 +3,4 @@ using System;
 
 namespace Acme.Core.Identity;
 
-
-
-
-public class UserRole : IdentityUserRole<Guid>
-{
-
-}
-
-
-
-
-
-
+public class UserRole : IdentityUserRole<Guid> { }

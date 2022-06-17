@@ -14,10 +14,10 @@ public class IdentityBootstrapper
     private readonly IdentityDbContext dbContext;
 
     public IdentityBootstrapper(
-    RoleManager<Role> roleManager,
-    UserManager<User> userManager,
-    IdentityDbContext dbContext
-   )
+        RoleManager<Role> roleManager,
+        UserManager<User> userManager,
+        IdentityDbContext dbContext
+    )
     {
         this.roleManager = roleManager;
         this.userManager = userManager;
@@ -30,9 +30,6 @@ public class IdentityBootstrapper
         await this.Roles();
         await this.Users();
     }
-
-
-
 
     private async Task Roles()
     {
@@ -69,7 +66,13 @@ public class IdentityBootstrapper
 
         await this.userManager.CreateAsync(user, password);
         await this.userManager.AddToRoleAsync(user, "Administrators");
-        await this.userManager.AddClaimAsync(user, new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.DateOfBirth, "2000-06-06", System.Security.Claims.ClaimValueTypes.Date));
+        await this.userManager.AddClaimAsync(
+            user,
+            new System.Security.Claims.Claim(
+                System.Security.Claims.ClaimTypes.DateOfBirth,
+                "2000-06-06",
+                System.Security.Claims.ClaimValueTypes.Date
+            )
+        );
     }
-
 }

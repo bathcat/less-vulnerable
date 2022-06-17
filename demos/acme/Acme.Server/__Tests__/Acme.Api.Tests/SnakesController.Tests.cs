@@ -26,8 +26,7 @@ public class SnakesController_Tests
             Color = "Green"
         };
         var mock = new Mock<ISnakeService>();
-        mock.Setup(repo => repo.Get(expected.ID))
-            .ReturnsAsync(expected);
+        mock.Setup(repo => repo.Get(expected.ID)).ReturnsAsync(expected);
         var repo = mock.Object;
 
         //Act

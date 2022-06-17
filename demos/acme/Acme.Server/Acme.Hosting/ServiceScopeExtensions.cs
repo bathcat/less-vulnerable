@@ -9,7 +9,6 @@ namespace Acme.Hosting;
 
 public static class ServiceScopeExtensions
 {
-
     public static async Task PopulateBusinessData(this IServiceScope scope)
     {
         using var appDbContext = scope.ServiceProvider.GetService<AppDbContext>();
@@ -25,14 +24,14 @@ public static class ServiceScopeExtensions
 
     public static async Task PopulateIdentityData(this IServiceScope scope)
     {
-        using var roleManager = scope.ServiceProvider.GetService<RoleManager<Acme.Core.Identity.Role>>();
-        using var userManager = scope.ServiceProvider.GetService<UserManager<Acme.Core.Identity.User>>();
+        using var roleManager = scope.ServiceProvider.GetService<
+            RoleManager<Acme.Core.Identity.Role>
+        >();
+        using var userManager = scope.ServiceProvider.GetService<
+            UserManager<Acme.Core.Identity.User>
+        >();
         using var idDbContext = scope.ServiceProvider.GetService<IdentityDbContext>();
         var idDbBootstrapper = new IdentityBootstrapper(roleManager!, userManager!, idDbContext!);
         await idDbBootstrapper.Seed();
     }
-
-
-
-
 }

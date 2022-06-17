@@ -7,11 +7,10 @@ public class SnakeService : ISnakeService
 {
     private readonly IRepository<SnakeInfo, Guid> repo;
 
-    public SnakeService(IRepository<SnakeInfo, Guid> repo)
-        => this.repo = repo;
+    public SnakeService(IRepository<SnakeInfo, Guid> repo) => this.repo = repo;
 
-    public Task<SnakeInfo> Create(Snake original)
-       => this.repo.Create(original.ToSnakeInfo("Provisional"));
+    public Task<SnakeInfo> Create(Snake original) =>
+        this.repo.Create(original.ToSnakeInfo("Provisional"));
 
     public async Task<SnakeInfo> Update(Snake updated)
     {
@@ -27,16 +26,9 @@ public class SnakeService : ISnakeService
         return await this.repo.Update(info);
     }
 
+    public Task<SnakeInfo?> Remove(Guid id) => this.repo.Remove(id);
 
-    public Task<SnakeInfo?> Remove(Guid id)
-        => this.repo.Remove(id);
+    public Task<SnakeInfo?> Get(Guid id) => this.repo.Get(id);
 
-    public Task<SnakeInfo?> Get(Guid id)
-        => this.repo.Get(id);
-
-    public Task<IEnumerable<SnakeInfo>> Get()
-        => this.repo.Get();
-
-
-
+    public Task<IEnumerable<SnakeInfo>> Get() => this.repo.Get();
 }

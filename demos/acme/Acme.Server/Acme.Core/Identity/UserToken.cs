@@ -3,14 +3,4 @@ using System;
 
 namespace Acme.Core.Identity;
 
-
-
-public class UserToken : IdentityUserToken<Guid>
-{
-
-}
-
-
-
-
-
+public class UserToken : IdentityUserToken<Guid> { }

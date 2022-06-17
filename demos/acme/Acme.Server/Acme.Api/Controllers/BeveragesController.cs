@@ -12,25 +12,20 @@ public class BeveragesController : ControllerBase
 {
     private readonly IRepository<Beverage, Guid> service;
 
-    public BeveragesController(
-        IRepository<Beverage, Guid> service
-    )
+    public BeveragesController(IRepository<Beverage, Guid> service)
     {
         this.service = service;
     }
 
     [HttpGet()]
-    public Task<IEnumerable<Beverage>> Get()
-       => this.service.Get();
+    public Task<IEnumerable<Beverage>> Get() => this.service.Get();
 
     [HttpGet("{id}")]
-    public Task<Beverage?> Get(Guid id)
-     => this.service.Get(id);
+    public Task<Beverage?> Get(Guid id) => this.service.Get(id);
 
     //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpPost()]
-    public Task<Beverage> Post(Beverage value)
-       => this.service.Create(value);
+    public Task<Beverage> Post(Beverage value) => this.service.Create(value);
 
     //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpPut("{id}")]
@@ -38,6 +33,5 @@ public class BeveragesController : ControllerBase
 
     //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpDelete("{id}")]
-    public Task<Beverage?> Delete(Guid id)
-       => this.service.Remove(id);
+    public Task<Beverage?> Delete(Guid id) => this.service.Remove(id);
 }

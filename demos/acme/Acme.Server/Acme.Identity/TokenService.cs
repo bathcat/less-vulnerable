@@ -1,5 +1,4 @@
-﻿
-using Acme.Core;
+﻿using Acme.Core;
 using Acme.Core.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -13,25 +12,23 @@ public class TokenService : ITokenService
 {
     private readonly JwtSettings settings;
 
-
-
     public TokenService(JwtSettings settings)
     {
         this.settings = settings;
     }
 
-
-
     public string BuildToken(User user)
     {
-        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(this.settings.AccessTokenSecret));
+        var key = new SymmetricSecurityKey(
+            System.Text.Encoding.UTF8.GetBytes(this.settings.AccessTokenSecret)
+        );
 
         // // Create standard JWT claims
         var jwtClaims = new List<Claim>
-      {
-         new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-      };
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
 
         //foreach (var customClaim in user.Claims)
         //{
@@ -59,16 +56,19 @@ public class TokenService : ITokenService
         var tokenHandler = new JwtSecurityTokenHandler();
         try
         {
-            tokenHandler.ValidateToken(token,
-            new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidIssuer = this.settings.Issuer,
-                ValidAudience = this.settings.Audience,
-                IssuerSigningKey = mySecurityKey,
-            }, out SecurityToken validatedToken);
+            tokenHandler.ValidateToken(
+                token,
+                new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = this.settings.Issuer,
+                    ValidAudience = this.settings.Audience,
+                    IssuerSigningKey = mySecurityKey,
+                },
+                out SecurityToken validatedToken
+            );
         }
         catch
         {

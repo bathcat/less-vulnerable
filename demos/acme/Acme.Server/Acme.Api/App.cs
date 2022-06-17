@@ -17,7 +17,6 @@ namespace Acme;
 //TODO: Turn off implicit global usings.
 public class App
 {
-
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
@@ -44,73 +43,63 @@ public class App
         var jwtSettings = configuration.GetJwtSettings();
         services.AddSingleton(jwtSettings);
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(jwtBearerOptions =>
-                 {
-                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                     {
-                         ValidateIssuerSigningKey = true,
-                         IssuerSigningKey = new SymmetricSecurityKey(
-                             System.Text.Encoding.UTF8.GetBytes(jwtSettings.AccessTokenSecret)),
-                         ValidateIssuer = true,
-                         ValidIssuer = jwtSettings.Issuer,
-
-                         ValidateAudience = true,
-                         ValidAudience = jwtSettings.Audience,
-
-                         ValidateLifetime = true,
-                         ClockSkew = TimeSpan.FromMinutes(jwtSettings.AccessTokenExpirationMinutes)
-                     };
-                 });
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(jwtBearerOptions =>
+            {
+                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        System.Text.Encoding.UTF8.GetBytes(jwtSettings.AccessTokenSecret)
+                    ),
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = jwtSettings.Audience,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(jwtSettings.AccessTokenExpirationMinutes)
+                };
+            });
     }
 
-
-    public static void ConfigureServices(IServiceCollection services, ConfigurationManager configuration)
+    public static void ConfigureServices(
+        IServiceCollection services,
+        ConfigurationManager configuration
+    )
     {
         services.ConfigurePersistance(configuration.GetConnectionString("DefaultConnection"));
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ISecurityService, SecurityService>();
 
         services.AddCors(options =>
-      {
-          options.AddDefaultPolicy(policy =>
-          {
-              policy.AllowAnyOrigin();
-              policy.AllowAnyMethod();
-              policy.AllowAnyHeader();
-          });
-      });
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.AllowAnyOrigin();
+                policy.AllowAnyMethod();
+                policy.AllowAnyHeader();
+            });
+        });
         services.AddRepositories();
-
 
         ConfigureJwt(services, configuration);
 
         services.AddControllers();
 
-        services.AddIdentityCore<Acme.Core.Identity.User>()
-                  .AddRoles<Acme.Core.Identity.Role>()
-                  .AddEntityFrameworkStores<IdentityDbContext>()
-                  .AddSignInManager()
-                  .AddDefaultTokenProviders();
+        services
+            .AddIdentityCore<Acme.Core.Identity.User>()
+            .AddRoles<Acme.Core.Identity.Role>()
+            .AddEntityFrameworkStores<IdentityDbContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders();
 
-        services.AddAuthentication(o =>
-        {
-            o.DefaultScheme = IdentityConstants.ApplicationScheme;
-            o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-        })
-        .AddIdentityCookies(o => { });
+        services
+            .AddAuthentication(o =>
+            {
+                o.DefaultScheme = IdentityConstants.ApplicationScheme;
+                o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddIdentityCookies(o => { });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

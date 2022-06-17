@@ -12,10 +12,7 @@ public class WeatherReportRepository : IRepository<WeatherReport, Guid>
 
     public WeatherReportRepository(AppDbContext context) => this.context = context;
 
-    private DbSet<WeatherReport> WeatherReports
-        => this.context.WeatherReports!;
-
-
+    private DbSet<WeatherReport> WeatherReports => this.context.WeatherReports!;
 
     public async Task<WeatherReport> Create(WeatherReport original)
     {
@@ -24,16 +21,12 @@ public class WeatherReportRepository : IRepository<WeatherReport, Guid>
         return result.Entity;
     }
 
-
-
     public async Task<WeatherReport> Update(WeatherReport updated)
     {
         var persisted = this.WeatherReports.Update(updated);
         await this.context.SaveChangesAsync();
         return persisted.Entity;
     }
-
-
 
     public async Task<WeatherReport?> Remove(Guid id)
     {
@@ -48,15 +41,12 @@ public class WeatherReportRepository : IRepository<WeatherReport, Guid>
         return persisted.Entity;
     }
 
-
-    public Task<WeatherReport?> Get(Guid id) => this.WeatherReports.SingleOrDefaultAsync(r => r.ID == id);
+    public Task<WeatherReport?> Get(Guid id) =>
+        this.WeatherReports.SingleOrDefaultAsync(r => r.ID == id);
 
     public async Task<IEnumerable<WeatherReport>> Get()
     {
         var results = await this.WeatherReports.ToListAsync();
         return results;
     }
-
-
-
 }

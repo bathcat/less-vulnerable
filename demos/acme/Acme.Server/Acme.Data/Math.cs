@@ -2,7 +2,6 @@
 
 public static class Math
 {
-
     public static bool IsPrime(int n)
     {
         if (n == 2 || n == 3 || n == 5 || n == 7 || n == 11)
@@ -16,7 +15,5 @@ public static class Math
         }
 
         return n % 2 == 0 || n % 3 == 0 || n % 4 == 0 || n % 5 == 0;
-
     }
 }
-

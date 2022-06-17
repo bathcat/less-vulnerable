@@ -12,7 +12,6 @@ public class AuthenticatedUser
     public string Token { get; set; } = string.Empty;
 }
 
-
 public interface ISecurityService
 {
     Task<AuthenticatedUser?> Authenticate(AuthenticationRequest request);

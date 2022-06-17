@@ -18,7 +18,9 @@ public static class DbContextExtensions
             }
             catch (System.Data.Common.DbException)
             {
-                System.Diagnostics.Debug.WriteLine("Swallowing exception. This probably means the tables are already there.");
+                System.Diagnostics.Debug.WriteLine(
+                    "Swallowing exception. This probably means the tables are already there."
+                );
             }
 
             return;

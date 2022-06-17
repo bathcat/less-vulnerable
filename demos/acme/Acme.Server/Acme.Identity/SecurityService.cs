@@ -13,7 +13,11 @@ public class SecurityService : ISecurityService
     private readonly SignInManager<User> signInManager;
     private readonly IdentityDbContext context;
 
-    public SecurityService(ITokenService tokenService, SignInManager<User> signInManager, IdentityDbContext context)
+    public SecurityService(
+        ITokenService tokenService,
+        SignInManager<User> signInManager,
+        IdentityDbContext context
+    )
     {
         this.tokenService = tokenService;
         this.signInManager = signInManager;
@@ -22,7 +26,12 @@ public class SecurityService : ISecurityService
 
     public async Task<AuthenticatedUser?> Authenticate(AuthenticationRequest model)
     {
-        var result = await this.signInManager.PasswordSignInAsync(model.Login, model.Password, false, false);
+        var result = await this.signInManager.PasswordSignInAsync(
+            model.Login,
+            model.Password,
+            false,
+            false
+        );
         if (!result.Succeeded)
         {
             return null;
@@ -39,6 +48,4 @@ public class SecurityService : ISecurityService
             Token = this.tokenService.BuildToken(user),
         };
     }
-
-
 }

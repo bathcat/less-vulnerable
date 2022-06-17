@@ -4,7 +4,6 @@ namespace Acme.Business.Tests;
 
 public class Math_Tests
 {
-
     [Test]
     public void IsPrime_2_Should_Be_True()
     {
@@ -28,9 +27,4 @@ public class Math_Tests
         var actual = Math.IsPrime(4);
         Assert.That(actual, Is.EqualTo(expected));
     }
-
-
-
-
-
 }

@@ -1,5 +1,4 @@
-﻿
-using Acme.Core;
+﻿using Acme.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -9,19 +8,10 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<WeatherReport>? WeatherReports
-    {
-        get; set;
-    }
+    public DbSet<WeatherReport>? WeatherReports { get; set; }
 
-    public DbSet<Beverage>? Beverages
-    {
-        get; set;
-    }
-    public DbSet<SnakeInfo>? Snakes
-    {
-        get; set;
-    }
+    public DbSet<Beverage>? Beverages { get; set; }
+    public DbSet<SnakeInfo>? Snakes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -42,15 +32,13 @@ public class AppDbContext : DbContext
         {
             b.ToTable(nameof(WeatherReport));
         });
-
     }
 }
-
 
 /// <summary>
 /// Note: this is only to get Visual Studio scaffolding to work. It should never
 /// be needed at runtime.
-/// 
+///
 /// TODO: Put a pragma here or something.
 /// </summary>
 public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
@@ -58,7 +46,9 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     public AppDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-        optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=acme;Integrated Security=SSPI;");
+        optionsBuilder.UseSqlServer(
+            "Data Source=.\\SQLEXPRESS;Initial Catalog=acme;Integrated Security=SSPI;"
+        );
 
         return new AppDbContext(optionsBuilder.Options);
     }
