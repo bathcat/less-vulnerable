@@ -5,12 +5,16 @@ export const styles = `
 </style>
 `;
 
+export function buildComponentTemplate(contents){
+  const template = window.document.createElement('template');
+  template.innerHTML = styles + contents;
+  return template;
+}
+
 export async function fetchTemplate(current) {
   const templatePath = current.replace('component.mjs', 'component.html');
   const response = await fetch(templatePath);
+  const contents = await response.text();
 
-  const template = window.document.createElement('template');
-  template.innerHTML = styles + (await response.text());
-
-  return template;
+  return buildComponentTemplate(contents);
 }
