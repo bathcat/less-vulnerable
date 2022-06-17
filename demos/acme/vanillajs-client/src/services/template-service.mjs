@@ -5,7 +5,6 @@ export const styles = `
 </style>
 `;
 
-
 export async function fetchTemplate(current) {
   const templatePath = current.replace('component.mjs', 'component.html');
   const response = await fetch(templatePath);
@@ -15,22 +14,3 @@ export async function fetchTemplate(current) {
 
   return template;
 }
-
-export class TemplateService{
-  #cache=new Map();
-
-  async getComponentTemplate(componentUri){
-    if(!componentUri || typeof(componentUri) !== 'string'){
-      throw new Error('Bad argument.')
-    }
-    if(!this.#cache.has(componentUri)){
-      this.#cache[componentUri] = await fetchTemplate(componentUri);
-    }
-    return this.#cache[componentUri];
-  }
-
-
-}
-
-
-

@@ -1,6 +1,4 @@
-import { fetchTemplate } from '/tools.mjs';
-
-export const init = async ({ window, snakeService }) => {
+export const init = async ({ window, snakeService,fetchTemplate }) => {
   const template = await fetchTemplate(import.meta.url);
 
   class SnakeDetails extends HTMLElement {

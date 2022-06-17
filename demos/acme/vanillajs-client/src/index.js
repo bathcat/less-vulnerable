@@ -17,7 +17,6 @@ import { TranslationService } from './services/translation-service.mjs';
 import { LocalStorageService } from './services/local-storage-service.mjs';
 import { AccountService } from './account-service.mjs';
 import {
-  TemplateService,
   fetchTemplate,
 } from './services/template-service.mjs';
 import { Component } from './component.mjs';

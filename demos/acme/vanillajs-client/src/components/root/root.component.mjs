@@ -1,6 +1,4 @@
-import { fetchTemplate } from '/tools.mjs';
-
-export const init = async ({ window }) => {
+export const init = async ({ window, fetchTemplate }) => {
   const template = await fetchTemplate(import.meta.url);
 
   class Root extends HTMLElement {

@@ -1,6 +1,4 @@
-import { fetchTemplate } from '/tools.mjs';
-
-export const init = async ({ window }) => {
+export const init = async ({ window, fetchTemplate }) => {
   const template = await fetchTemplate(import.meta.url);
 
   class PageElement extends HTMLElement {
@@ -11,12 +9,12 @@ export const init = async ({ window }) => {
     }
 
     connectedCallback() {
-      if(!this.hasAttribute('title')){
+      if (!this.hasAttribute('title')) {
         return;
       }
-      this.shadowRoot.getElementById('title').innerText= this.getAttribute('title');
+      this.shadowRoot.getElementById('title').innerText =
+        this.getAttribute('title');
     }
-
   }
 
   window.customElements.define('avc-page', PageElement);
