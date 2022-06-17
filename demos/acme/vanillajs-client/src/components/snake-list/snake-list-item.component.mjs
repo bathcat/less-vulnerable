@@ -1,4 +1,5 @@
 import { buildTemplate } from '../../element-builder.mjs';
+import { ComponentBase } from '../../component-base.mjs';
 
 export const trTemplate = `
   <th id="name"></th>
@@ -34,7 +35,7 @@ export class SnakeListItemComponent extends HTMLTableRowElement {
 
   //TODO: Consider using a mixin to reuse stuff frome ComponentBase
   //      (You can't inherit here 'cause this has to inherit from HTMLTableRowElement directly.)
-  //      (Another possibility would be: Inherit from ComponentBase, but )
+  //      (Another possibility would be: Inherit from ComponentBase, and do some trickery with object.setprototype. )
   constructor(snakeService = SnakeListItemComponent.Services.snakeService) {
     super();
     this.#snakeService = snakeService;
