@@ -1,11 +1,10 @@
-import { Component } from '../../component.mjs';
+import { ComponentBase } from '../../component-base.mjs';
 
-export const Tag = 'avc-sign-in';
-
-export class SignInComponent extends Component {
+export class SignInComponent extends ComponentBase {
   //TODO: Use symbols for these...
   static Services = {};
   static Template = '<h1>Hello World</h1>';
+  static Tag = 'avc-sign-in';
 
   #accountService = undefined;
   #router = undefined;
@@ -34,14 +33,4 @@ export class SignInComponent extends Component {
   }
 }
 
-export const init = async ({
-  window,
-  router,
-  fetchTemplate,
-  accountService,
-}) => {
-  SignInComponent.Template = await fetchTemplate(import.meta.url);
-  SignInComponent.Services = { router, accountService };
-
-  window.customElements.define(Tag, SignInComponent);
-};
+export const build = builder => builder.build(SignInComponent, import.meta.url);

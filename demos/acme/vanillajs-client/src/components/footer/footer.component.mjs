@@ -1,12 +1,13 @@
-export const init = async ({ window, fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class Footer extends HTMLElement {
-    constructor() {
-      super();
-      this.appendChild(template.content.cloneNode(true));
-    }
+export class FooterComponent extends ComponentBase {
+  static Services = {};
+  static Template = '<h1>Hello World</h1>';
+  static Tag = 'avc-footer';
+
+  constructor(template = FooterComponent.Template) {
+    super(template);
   }
+}
 
-  window.customElements.define('avc-footer', Footer);
-};
+export const build = builder => builder.build(FooterComponent, import.meta.url);

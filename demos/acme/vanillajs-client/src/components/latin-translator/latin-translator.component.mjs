@@ -1,43 +1,40 @@
-export const init = async ({ window, translationService,fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class LatinTranslatorComponent extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
+export class LatinTranslatorComponent extends ComponentBase {
+  //TODO: Use symbols for these...
+  static Services = {};
+  static Template = '<h1>Hello World</h1>';
+  static Tag = 'avc-latin-translator';
 
-      this.translateButon.addEventListener('click', () => this.translate());
+  #translationService = undefined;
 
-      let params = new URLSearchParams(document.location.search);
-      let english = params.get('english');
-      if (english) {
-        this.englishControl.value = english;
-        this.translate();
-      }
-    }
+  constructor(
+    template = LatinTranslatorComponent.Template,
+    translationService = LatinTranslatorComponent.Services.translationService
+  ) {
+    super(template);
+    this.#translationService = translationService;
 
-    get translateButon() {
-      return this.shadowRoot.querySelector('#translate');
-    }
+    this.registerClick('#translate', () => this.translate());
 
-    get englishControl() {
-      return this.shadowRoot.querySelector('#english');
-    }
-
-    get latinControl() {
-      return this.shadowRoot.querySelector('#latin');
-    }
-
-    translate() {
-      const original = this.englishControl.value;
-      const translated = translationService.translate(original);
-      this.latinControl.outerHTML = original;
-    }
+    // TODO: Put this back in.
+    // let params = new URLSearchParams(document.location.search);
+    // let english = params.get('english');
+    // if (english) {
+    //   this.englishControl.value = english;
+    //   this.translate();
+    // }
   }
 
-  window.customElements.define(
-    'avc-latin-translator',
-    LatinTranslatorComponent
-  );
-};
+  #english = this.getInput('#english');
+  #latin = this.getInput('#latin');
+
+  translate() {
+    const original = this.#english.get();
+    const translated = this.#translationService.translate(original);
+    this.#latin.set(translated);
+  }
+}
+
+export const build = builder =>
+  builder.build(LatinTranslatorComponent, import.meta.url);

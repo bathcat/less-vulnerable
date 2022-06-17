@@ -1,12 +1,13 @@
-export const init = async ({ window, fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class Home extends HTMLElement {
-    constructor() {
-      super();
-      this.appendChild(template.content.cloneNode(true));
-    }
+export class HomeComponent extends ComponentBase {
+  static Services = {};
+  static Template = '<h1>Hello World</h1>';
+  static Tag = 'avc-home';
+
+  constructor(template = HomeComponent.Template) {
+    super(template);
   }
+}
 
-  window.customElements.define('avc-home', Home);
-};
+export const build = builder => builder.build(HomeComponent, import.meta.url);

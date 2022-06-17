@@ -1,4 +1,4 @@
-export class Component extends HTMLElement {
+export class ComponentBase extends HTMLElement {
   constructor(template) {
     super();
     this.attachShadow({ mode: 'open' });
