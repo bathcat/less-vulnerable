@@ -10,6 +10,8 @@ export class AccountService {
   }
 
   async login(login, password) {
+    alert(`Logging in: ${login},${password}`);
+    return;
     const method = 'POST';
     const body = { login, password };
     const response = await fetch(this.url, { method, body });
