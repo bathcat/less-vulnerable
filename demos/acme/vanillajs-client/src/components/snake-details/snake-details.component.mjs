@@ -1,55 +1,65 @@
-export const init = async ({ window, snakeService,fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class SnakeDetails extends HTMLElement {
-    snakeService = snakeService;
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-      this.getInput('#save').addEventListener('click', () => this.save());
-      this.getInput('#cancel').addEventListener('click', () => this.cancel());
-    }
+export class SnakeDetailsComponent extends ComponentBase {
+  static Tag = 'avc-snake-details';
+  #snakeService = undefined;
 
-    get key() {
-      return window.location.href.split('/').slice(-1)[0];
-    }
-
-    save() {
-      this.snakeService.save(this.model);
-      navigateTo('/snakes');
-    }
-
-    cancel() {
-      navigateTo('/snakes');
-    }
-
-    connectedCallback() {
-      this.snakeService.getById(this.key).then(snake => {
-        this.model = snake;
-      });
-    }
-
-    getInput(selector) {
-      return this.shadowRoot.querySelector(selector);
-    }
-
-    get model() {
-      return {
-        id: this.key,
-        name: this.getInput('#name').value,
-        color: this.getInput('#color').value,
-        meannessLevel: this.getInput('#meannessLevel').value,
-      };
-    }
-
-    set model(value) {
-      this.getInput('#name').value = value.name;
-      this.getInput('#color').value = value.color;
-      this.getInput('#meannessLevel').value = value.meannessLevel;
-      this.getInput('#payGrade').value = value.payGrade;
-    }
+  constructor(
+    template = SnakeDetailsComponent.Template,
+    snakeService = SnakeDetailsComponent.Services.snakeService,
+  ) {
+    super(template);
+    this.#snakeService=snakeService;
+    this.registerClick('#save', () => this.save());
+    this.registerClick('#cancel', () => this.cancel());
   }
 
-  window.customElements.define('avc-snake-details', SnakeDetails);
-};
+  get key() {
+    //TODO: Make this not sleazy.
+    return window.location.href.split('/').slice(-1)[0];
+  }
+
+  connectedCallback() {
+    this.#snakeService.getById(this.key).then(snake => {
+      this.model = snake;
+    });
+  }
+
+  #name=this.getInput('#name');
+  #color=this.getInput('#color');
+  #meannessLevel=this.getInput('#meannessLevel');
+  #payGrade=this.getInput('#payGrade');
+
+  save() {
+    this.#snakeService.save(this.model);
+    //TODO: Use the navigator service.... or something
+    navigateTo('/snakes');
+  }
+
+  cancel() {
+    //TODO: Use the navigator service.
+    navigateTo('/snakes');
+  }
+
+  get model() {
+    return {
+      id: this.key,
+      name: this.#name.get(),
+      color: this.#color.get(),
+      meannessLevel: this.#meannessLevel.get(),
+      payGrade:this.#payGrade.get(),
+    };
+  }
+
+  set model(value) {
+    this.#name.set( value.name);
+    this.#color.set(value.color);
+    this.#meannessLevel.set(value.meannessLevel);
+    this.#payGrade.set(value.payGrade);
+  }
+}
+
+export const build = builder => builder.build(SnakeDetailsComponent, import.meta.url);
+
+
+

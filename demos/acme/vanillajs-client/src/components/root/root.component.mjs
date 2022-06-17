@@ -1,13 +1,11 @@
-export const init = async ({ window, fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class Root extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
+export class RootComponent extends ComponentBase {
+  static Tag = 'avc-root';
+
+  constructor(template = RootComponent.Template) {
+    super(template);
   }
+}
 
-  window.customElements.define('avc-root', Root);
-};
+export const build = builder => builder.build(RootComponent, import.meta.url);

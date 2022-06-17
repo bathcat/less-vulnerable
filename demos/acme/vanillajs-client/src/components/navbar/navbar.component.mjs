@@ -1,15 +1,12 @@
-export const init = async ({ window, fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class Navbar extends HTMLElement {
-    constructor() {
-      super();
-      this.appendChild(template.content.cloneNode(true));
-    }
-    foo() {
-      alert('hw');
-    }
+//TODO: Use the injected navigation service
+export class NavbarComponent extends ComponentBase {
+  static Tag = 'avc-navbar';
+
+  constructor(template = NavbarComponent.Template) {
+    super(template);
   }
+}
 
-  window.customElements.define('avc-navbar', Navbar);
-};
+export const build = builder => builder.build(NavbarComponent, import.meta.url);

@@ -1,21 +1,11 @@
-export const init = async ({ window, fetchTemplate }) => {
-  const template = await fetchTemplate(import.meta.url);
+import { ComponentBase } from '../../component-base.mjs';
 
-  class PageElement extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
+export class PageComponent extends ComponentBase {
+  static Tag = 'avc-page';
 
-    connectedCallback() {
-      if (!this.hasAttribute('title')) {
-        return;
-      }
-      this.shadowRoot.getElementById('title').innerText =
-        this.getAttribute('title');
-    }
+  constructor(template = PageComponent.Template) {
+    super(template);
   }
+}
 
-  window.customElements.define('avc-page', PageElement);
-};
+export const build = builder => builder.build(PageComponent, import.meta.url);
