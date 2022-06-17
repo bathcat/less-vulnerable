@@ -18,11 +18,16 @@ export class SnakeDetailsComponent extends ComponentBase {
   }
 
   get key() {
-    //TODO: Make this not sleazy.
-    return window.location.href.split('/').slice(-1)[0];
+    if (!this.hasAttribute('snakeID')) {
+      return null;
+    }
+    return this.getAttribute('snakeID');
   }
 
   connectedCallback() {
+    if (!this.key) {
+      return;
+    }
     this.#snakeService.getById(this.key).then(snake => {
       this.model = snake;
     });

@@ -4,15 +4,15 @@ export class Router {
   }
 
   navigateTo(path) {
-    const route = this.getRoute(path);
+    const template = this.getTemplate(path);
     history.pushState({}, '', path);
-    this.load(route.template);
+    this.load(template);
     return false;
   }
 
-  startWith(path){
-    const route = this.getRoute(path);
-    this.load(route.template);
+  startWith(path) {
+    const template = this.getTemplate(path);
+    this.load(template);
     return false;
   }
 
@@ -26,8 +26,9 @@ export class Router {
     return false;
   }
 
-  getRoute(url) {
+  getTemplate(url) {
     const urlSegments = url.split('/').slice(1);
+    const routeData = {};
 
     const matched = this.routes.find(route => {
       if (route.path === 404) {
@@ -42,6 +43,7 @@ export class Router {
 
       for (let i = 0; i < urlSegments.length; i++) {
         if (routePathSegments[i].startsWith(':')) {
+          routeData[routePathSegments[i].replace(':', '')] = urlSegments[i];
           continue;
         }
 
@@ -50,11 +52,8 @@ export class Router {
         }
       }
       return true;
-    });
+    }) ?? this.routes.find(r => r.path === 404);
 
-    if (!matched) {
-      return this.routes.find(r => r.path === 404);
-    }
-    return matched;
+    return matched.getTemplate(routeData);
   }
 }
