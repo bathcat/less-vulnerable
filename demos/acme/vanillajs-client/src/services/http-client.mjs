@@ -1,21 +1,12 @@
 export class HttpClient {
   #rootUrl = undefined;
-  #fetch = () => {throw new Error('No fetch!');}
+  #fetch = undefined;
   #securityService = undefined;
-  constructor({ rootUrl,_fetch,securityService }) {
+  constructor({ rootUrl, _fetch, securityService }) {
     this.#rootUrl = rootUrl;
     this.#securityService = securityService;
-    this.#fetch=_fetch;
+    this.#fetch = _fetch;
   }
-
-  // getTokenHeader(){
-  //   if(!this.#token){
-  //     return {};
-  //   }
-  //   return {
-  //     'Authorization': `Bearer ${this.#token}`
-  //   }
-  // }
 
   _getUrl(relative) {
     //TODO: Use new URL
@@ -25,24 +16,38 @@ export class HttpClient {
     return `${this.#rootUrl}/${relative}`;
   }
 
-  async get(relativeUrl) {
-    const url = this._getUrl(relativeUrl);
-    const response = await this.#fetch(url);
-    return await response.json();
+  get headersForContentType() {
+    return { 'Content-Type': 'application/json' };
   }
 
-  _getHeaders() {
-    return {
-      'Content-Type': 'application/json',
+  get headersForAuthorization() {
+    const token = this.#securityService.token;
+    if (!token) {
+      return {};
+    }
+    return { Authorization: `Bearer ${token}` };
+  }
+
+  async get(relativeUrl) {
+    const url = this._getUrl(relativeUrl);
+    const headers = {
+      ...this.headersForAuthorization,
     };
+
+    const response = await this.#fetch(url, { headers });
+    return await response.json();
   }
 
   async put(relativeUrl, contents) {
     const url = this._getUrl(relativeUrl);
-    const headers = this._getHeaders();
+    const headers = {
+      ...this.headersForContentType,
+      ...this.headersForAuthorization,
+    };
+
     const body = JSON.stringify(contents);
 
-    const response = await fetch(url, {
+    const response = await this.#fetch(url, {
       method: 'PUT',
       body,
       headers,
@@ -53,10 +58,13 @@ export class HttpClient {
 
   async post(relativeUrl, contents) {
     const url = this._getUrl(relativeUrl);
-    const headers = this._getHeaders();
+    const headers = {
+      ...this.headersForContentType,
+      ...this.headersForAuthorization,
+    };
     const body = JSON.stringify(contents);
 
-    const response = await fetch(url, {
+    const response = await this.#fetch(url, {
       method: 'POST',
       body,
       headers,
@@ -67,11 +75,15 @@ export class HttpClient {
 
   async delete(relativeUrl) {
     const url = this._getUrl(relativeUrl);
+    const headers = {
+      ...this.headersForAuthorization,
+    };
 
-    const response = await fetch(url, {
+    const response = await this.#fetch(url, {
       method: 'DELETE',
+      headers,
     });
-    //TODO: Make sure everything went ok.S
+    //TODO: Make sure everything went ok.
     return;
   }
 }

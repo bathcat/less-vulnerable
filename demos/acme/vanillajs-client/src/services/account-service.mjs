@@ -17,6 +17,7 @@ export class AccountService {
   async login(model) {
     const info = await this.#httpClient.post(this.url, model);
     const token = info.token;
+    this.#securityService.token = token;
     console.log(`Here's the token: ${token}`);
     const tokenInfo = decode(token);
 
