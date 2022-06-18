@@ -9,7 +9,7 @@ export class SnakeListComponent extends ComponentBase {
   constructor(
     template = SnakeListComponent.Template,
     snakeService = SnakeListComponent.Services.snakeService,
-    router = SnakeListComponent.Services.router
+    router = SnakeListComponent.Services.router,
   ) {
     super(template);
     this.#snakeService = snakeService;

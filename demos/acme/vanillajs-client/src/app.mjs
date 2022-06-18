@@ -10,15 +10,16 @@ import { build as signIn } from './components/sign-in/sign-in.component.mjs';
 import { build as register } from './components/register/register.component.mjs';
 import { build as latinTranslator } from './components/latin-translator/latin-translator.component.mjs';
 import { build as page } from './components/page/page.component.mjs';
+import { build as error } from './components/error/error.component.mjs';
 
 import { ElementBuilder } from './element-builder.mjs';
 import { Router } from './services/router.mjs';
-import { routes } from './routes.mjs';
 import { SnakeService } from './services/snake-service.mjs';
 import { TranslationService } from './services/translation-service.mjs';
 import { LocalStorageService } from './services/local-storage-service.mjs';
 import { AccountService } from './services/account-service.mjs';
 import { SecurityService } from './services/security-service.mjs';
+import { ErrorService } from './services/error-service.mjs'; 
 import { HttpClient } from './services/http-client.mjs';
 
 const builders = [
@@ -34,6 +35,7 @@ const builders = [
   register,
   snakeListItem,
   snakeList,
+  error,
 ];
 
 export class App {
@@ -61,7 +63,8 @@ export class App {
       _fetch: this.#window.fetch.bind(this.#window),
       translationService: new TranslationService(),
       securityService: new SecurityService(),
-      rootUrl:this.#apiUrl,
+      rootUrl: this.#apiUrl,
+      errorService: new ErrorService(),
     };
 
     services = {

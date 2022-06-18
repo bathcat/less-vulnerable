@@ -2,9 +2,15 @@ export class SnakeService {
   //TODO: Make these private.
   rootUrl = '';
   #httpClient = undefined;
+  #errorService = undefined;
 
-  constructor({ httpClient }) {
+  constructor({ httpClient, errorService }) {
+    if (!errorService || !httpClient) {
+      throw new Error('Bogus arguments.');
+    }
+
     this.#httpClient = httpClient;
+    this.#errorService = errorService;
   }
 
   _getUrl(id = '') {
@@ -32,6 +38,8 @@ export class SnakeService {
   }
 
   delete(snakeId) {
+    this.#errorService.show('some error', 'deeeeeeeetails');
+    return;
     const url = this._getUrl(snakeId);
     return this.#httpClient.delete(url);
   }
