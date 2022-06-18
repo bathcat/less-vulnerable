@@ -1,54 +1,63 @@
-import { Router } from '../src/services/router.mjs';
+import { _matchRoute } from '../src/services/router.mjs';
 import { expect, test } from '@jest/globals';
 
-// test('should get home', () => {
-//   //Arrange
-//   const expected = '<xyz-home></xyz-home>';
-//   const router = new Router([
-//     {
-//       path: '/',
-//       template: expected,
-//     },
-//   ]);
-//   //Arrange
-//   const actual = router.getRoute('/');
+test('_matchRoute should fail on mismatched lengths', () => {
+  //Arrange
+  const url = '/widgets/44';
+  const route=  {
+    path: '/sign-in',
+    getTemplate: () => '<h1>!</h1>',
+  };
 
-//   //Assert
-//   expect(actual.template).toBe(expected);
-// });
+  //Act 
+  const actual = _matchRoute(url,route);
 
-// test('should get 404', () => {
-//   //Arrange
-//   const expected = '<h1>Not Found</h1>';
-//   const router = new Router([
-//     {
-//       path: 404,
-//       template: expected,
-//     },
-//   ]);
-//   //Arrange
-//   const actual = router.getRoute('/lubbalubbadubdub');
+  //Assert
+  expect(actual).toBeFalsy();
+});
 
-//   //Assert
-//   expect(actual.template).toBe(expected);
-// });
+test('_matchRoute should fail on mismatched segment', () => {
+  //Arrange
+  const url = '/widgets/best/top-10';
+  const route=  {
+    path: '/widgets/worst/top-10',
+    getTemplate: () => '<h1>!</h1>',
+  };
 
-// test('should get wildcard', () => {
-//   //Arrange
-//   const expected = '<xyz-widget-details></xyz-widget-details>';
-//   const router = new Router([
-//     {
-//       path: '/widgets',
-//       template: '<xyz-widget-list></xyz-widget-list>',
-//     },
-//     {
-//       path: '/widgets/:id',
-//       template: expected,
-//     },
-//   ]);
-//   //Arrange
-//   const actual = router.getRoute('/widgets/44');
+  //Act 
+  const actual = _matchRoute(url,route);
 
-//   //Assert
-//   expect(actual.template).toBe(expected);
-// });
+  //Assert
+  expect(actual).toBeFalsy();
+});
+
+test('_matchRoute should pass on exact match', () => {
+  //Arrange
+  const url = '/widgets/best/top-10';
+  const route=  {
+    path: '/widgets/best/top-10',
+    getTemplate: () => '<h1>!</h1>',
+  };
+
+  //Act 
+  const actual = _matchRoute(url,route);
+
+  //Assert
+  expect(actual).toStrictEqual({...route,routeData:{}});
+});
+
+test('_matchRoute should extract wildcards', () => {
+  //Arrange
+  const url = '/widgets/22';
+  const route=  {
+    path: '/widgets/:id',
+    getTemplate: () => '<h1>!</h1>',
+  };
+
+  //Act 
+  const actual = _matchRoute(url,route);
+
+  //Assert
+  expect(actual).toBeTruthy();
+  expect(actual.routeData).toStrictEqual({id:'22'});
+});
