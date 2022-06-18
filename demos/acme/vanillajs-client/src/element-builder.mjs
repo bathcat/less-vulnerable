@@ -17,6 +17,7 @@ export function buildComponentTemplate(contents) {
 
 export async function fetchTemplate(current) {
   const templatePath = current.replace('component.mjs', 'component.html');
+  //TODO: Inject this or something.
   const response = await fetch(templatePath);
   const contents = await response.text();
 
