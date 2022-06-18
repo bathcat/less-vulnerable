@@ -21,7 +21,7 @@ export const component = base =>
       element.addEventListener('click', () => this[id]());
     }
 
-    _bindClickHandlers(ids) {
+    _bindClickHandlers(...ids) {
       ids.forEach(id => this._bindClickHandler(id));
     }
 
