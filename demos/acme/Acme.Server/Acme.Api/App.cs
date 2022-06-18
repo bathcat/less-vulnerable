@@ -2,7 +2,6 @@
 using Acme.Core;
 using Acme.Hosting;
 using Acme.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
 namespace Acme;
 
@@ -40,27 +40,53 @@ public class App
 
     public static void ConfigureJwt(IServiceCollection services, ConfigurationManager configuration)
     {
-        var jwtSettings = configuration.GetJwtSettings();
-        services.AddSingleton(jwtSettings);
+        var settings = configuration.GetJwtSettings();
+        services.AddSingleton(settings);
 
-        services
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(jwtBearerOptions =>
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = "JwtBearer";
+            options.DefaultChallengeScheme = "JwtBearer";
+        })
+        .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+        {
+            jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
             {
-                jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        System.Text.Encoding.UTF8.GetBytes(jwtSettings.AccessTokenSecret)
-                    ),
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = jwtSettings.Audience,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(jwtSettings.AccessTokenExpirationMinutes)
-                };
-            });
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(settings.AccessTokenSecret)),
+                ValidateIssuer = true,
+                ValidIssuer = settings.Issuer,
+
+                ValidateAudience = true,
+                ValidAudience = settings.Audience,
+
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.FromMinutes(10)
+            };
+        });
+
+
+        //services
+        //    .AddAuthentication()
+        //    .AddJwtBearer(options =>
+        //    {
+        //        options.Audience = "https://localhost:5001";
+        //options.TokenValidationParameters = new TokenValidationParameters
+        //{
+        //    ValidateIssuerSigningKey = true,
+        //    IssuerSigningKey = new SymmetricSecurityKey(
+        //        System.Text.Encoding.UTF8.GetBytes(jwtSettings.AccessTokenSecret)
+        //    ),
+        //    ValidateIssuer = true,
+        //    ValidIssuer = jwtSettings.Issuer,
+        //    ValidateAudience = true,
+        //    ValidAudience = jwtSettings.Audience,
+        //    ValidateLifetime = true,
+        //    ClockSkew = TimeSpan.FromMinutes(jwtSettings.AccessTokenExpirationMinutes)
+        //};
+        // });
+
     }
 
     public static void ConfigureServices(
