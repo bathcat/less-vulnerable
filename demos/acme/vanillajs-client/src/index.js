@@ -37,7 +37,6 @@ const router = new Router(routes);
 const apiUrl = 'https://localhost:7232';
 
 const injectables = {
-  window,
   router,
   accountService: new AccountService(apiUrl),
   translationService: new TranslationService(),
