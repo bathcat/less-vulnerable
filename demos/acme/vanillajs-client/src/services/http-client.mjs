@@ -23,7 +23,7 @@ export class HttpClient {
   }
 
   get headersForAuthorization() {
-    const token = this.#securityService.token;
+    const token = this.#securityService.loginInfo$.value.token;
     if (!token) {
       return {};
     }
