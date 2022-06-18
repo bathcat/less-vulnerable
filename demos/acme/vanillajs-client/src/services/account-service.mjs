@@ -9,12 +9,11 @@ export class AccountService {
     return `${this.rootUrl}/authenticationrequests`;
   }
 
-  async login(login, password) {
-    alert(`Logging in: ${login},${password}`);
-    return;
+  async login(model) {
     const method = 'POST';
-    const body = { login, password };
-    const response = await fetch(this.url, { method, body });
+    const body = JSON.stringify( model);
+    const headers = { 'Content-Type': 'application/json' };
+    const response = await fetch(this.url, { method, body, headers });
     const info = await response.json();
 
     console.log(`Response: ${JSON.stringify(info)}`);

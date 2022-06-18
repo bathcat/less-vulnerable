@@ -14,15 +14,13 @@ export class SignInComponent extends ComponentBase {
     super(template);
     this.#accountService = accountService;
     this.#router = router;
-    this.registerClick('#submit', () => this.signIn());
-    this.registerClick('#cancel', () => this.cancel());
+    this._bindClickHandlers('signIn', 'cancel');
+    this._bindInputModel('login', 'password');
   }
 
-  #login = this.getInput('#email');
-  #password = this.getInput('#password');
-
-  signIn() {
-    this.#accountService.login(this.#login.get(), this.#password.get());
+  async signIn() {
+    await this.#accountService.login(this.model);
+    this.#router.navigateTo('/');
   }
 
   cancel() {
