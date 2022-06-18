@@ -2,10 +2,12 @@ export class HttpClient {
   #rootUrl = undefined;
   #fetch = undefined;
   #securityService = undefined;
-  constructor({ rootUrl, _fetch, securityService }) {
+  #errorService = undefined;
+  constructor({ rootUrl, _fetch, securityService, errorService }) {
     this.#rootUrl = rootUrl;
     this.#securityService = securityService;
     this.#fetch = _fetch;
+    this.#errorService = errorService;
   }
 
   _getUrl(relative) {
@@ -75,15 +77,18 @@ export class HttpClient {
 
   async delete(relativeUrl) {
     const url = this._getUrl(relativeUrl);
-    const headers = {
-      ...this.headersForAuthorization,
+
+    const options={
+      method: 'DELETE',
+      headers:{
+        ...this.headersForAuthorization
+      },
     };
 
-    const response = await this.#fetch(url, {
-      method: 'DELETE',
-      headers,
-    });
-    //TODO: Make sure everything went ok.
+    const response = await this.#fetch(url,options);
+    if (!response.ok) {
+      this.#errorService.showHttpError(response,options);
+    }
     return;
   }
 }

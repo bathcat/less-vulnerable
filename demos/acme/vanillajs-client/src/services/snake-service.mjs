@@ -38,8 +38,6 @@ export class SnakeService {
   }
 
   delete(snakeId) {
-    this.#errorService.show('some error', 'deeeeeeeetails');
-    return;
     const url = this._getUrl(snakeId);
     return this.#httpClient.delete(url);
   }

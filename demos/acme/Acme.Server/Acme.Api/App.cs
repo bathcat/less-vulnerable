@@ -27,6 +27,7 @@ public class App
         if (app.Environment.IsDevelopment())
         {
             app.Services.PopulateData();
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseHttpsRedirection();
