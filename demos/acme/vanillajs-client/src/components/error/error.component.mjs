@@ -1,4 +1,4 @@
-import { ComponentBase } from '../../component-base.mjs';
+import { ComponentBase } from '/infrastructure/component-base.mjs';
 
 export class ErrorComponent extends ComponentBase {
   static Tag = 'avc-error';

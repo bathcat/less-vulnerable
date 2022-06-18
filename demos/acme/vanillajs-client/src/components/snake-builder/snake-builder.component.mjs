@@ -1,4 +1,4 @@
-import { ComponentBase } from '../../component-base.mjs';
+import { ComponentBase } from '/infrastructure/component-base.mjs';
 
 export class SnakeBuilderComponent extends ComponentBase {
   static Tag = 'avc-snake-builder';
@@ -18,11 +18,11 @@ export class SnakeBuilderComponent extends ComponentBase {
   }
 
   connectedCallback() {
-      this.model = {
-        name: '',
-        color: '',
-        meannessLevel: 0,
-      };
+    this.model = {
+      name: '',
+      color: '',
+      meannessLevel: 0,
+    };
   }
 
   async save() {

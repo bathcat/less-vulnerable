@@ -1,4 +1,4 @@
-import { ComponentBase } from '../../component-base.mjs';
+import { ComponentBase } from '/infrastructure/component-base.mjs';
 
 //TODO: Use the injected navigation service
 export class NavbarComponent extends ComponentBase {

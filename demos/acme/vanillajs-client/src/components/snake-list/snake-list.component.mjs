@@ -1,4 +1,4 @@
-import { ComponentBase } from '../../component-base.mjs';
+import { ComponentBase } from '/infrastructure/component-base.mjs';
 
 export class SnakeListComponent extends ComponentBase {
   static Tag = 'avc-snake-list';
@@ -9,7 +9,7 @@ export class SnakeListComponent extends ComponentBase {
   constructor(
     template = SnakeListComponent.Template,
     snakeService = SnakeListComponent.Services.snakeService,
-    router = SnakeListComponent.Services.router,
+    router = SnakeListComponent.Services.router
   ) {
     super(template);
     this.#snakeService = snakeService;

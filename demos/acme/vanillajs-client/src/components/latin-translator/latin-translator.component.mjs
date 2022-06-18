@@ -1,4 +1,4 @@
-import { ComponentBase } from '../../component-base.mjs';
+import { ComponentBase } from '/infrastructure/component-base.mjs';
 
 export class LatinTranslatorComponent extends ComponentBase {
   static Tag = 'avc-latin-translator';

@@ -1,5 +1,5 @@
 import { buildTemplate } from '../../infrastructure/element-builder.mjs';
-import { component } from '../../component-base.mjs';
+import { component } from '../../infrastructure/component-base.mjs';
 
 export const trTemplate = `
   <th id="name"></th>

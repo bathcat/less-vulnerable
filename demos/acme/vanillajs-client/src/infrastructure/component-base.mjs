@@ -10,7 +10,7 @@ export const component = base =>
         set: val => (element.value = val),
       };
     }
-
+x
     registerClick = (selector, callback) =>
       this.querySelector(selector).addEventListener('click', () => callback());
 
