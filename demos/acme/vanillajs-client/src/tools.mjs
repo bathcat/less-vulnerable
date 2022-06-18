@@ -8,7 +8,7 @@ export function* zip(xs, ys) {
     throw new Error('Only arrays of the same length are zippable.');
   }
 
-  for(let i = 0; i<xs.length; i++){
-    yield [xs[i],ys[i]]
+  for (let i = 0; i < xs.length; i++) {
+    yield [xs[i], ys[i]];
   }
 }
