@@ -17,6 +17,7 @@ export class Router {
   }
 
   load(template) {
+    //TODO: Inject this stuff into the constructor.
     const rootElement = document.querySelector('avc-root');
 
     const routerOutletElement =
