@@ -20,6 +20,10 @@ export class SecurityService {
 
   set token(value) {
     //TODO: Maybe validate this or something.
+    if(!value){
+      this.#loginInfo$.next(anonymous);
+      return;
+    }
     this.#loginInfo$.next({
       isLoggedIn: true,
       login: 'some.fake@example.com',

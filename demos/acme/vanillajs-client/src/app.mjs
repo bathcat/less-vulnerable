@@ -7,10 +7,10 @@ import { build as snakeListItem } from './components/snake-list/snake-list-item.
 import { build as snakeEditor } from './components/snake-editor/snake-editor.component.mjs';
 import { build as snakeBuilder } from './components/snake-builder/snake-builder.component.mjs';
 import { build as signIn } from './components/sign-in/sign-in.component.mjs';
-import { build as register } from './components/register/register.component.mjs';
 import { build as latinTranslator } from './components/latin-translator/latin-translator.component.mjs';
 import { build as page } from './components/page/page.component.mjs';
 import { build as error } from './components/error/error.component.mjs';
+import { build as loginInfo } from './components/login-info/login-info.component.mjs';
 
 import { ElementBuilder } from '/infrastructure/element-builder.mjs';
 import { Router } from './services/router.mjs';
@@ -32,10 +32,10 @@ const builders = [
   root,
   snakeEditor,
   snakeBuilder,
-  register,
   snakeListItem,
   snakeList,
   error,
+  loginInfo,
 ];
 
 export class App {

@@ -12,10 +12,6 @@ export const routes = [
     getTemplate: () => '<avc-latin-translator></avc-latin-translator>',
   },
   {
-    path: '/register',
-    getTemplate: () => '<avc-register></avc-register>',
-  },
-  {
     path: '/snakes',
     getTemplate: () => '<avc-snake-list></avc-snake-list>',
   },

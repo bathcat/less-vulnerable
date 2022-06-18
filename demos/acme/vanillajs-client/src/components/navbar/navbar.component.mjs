@@ -15,8 +15,6 @@ export class NavbarComponent extends ComponentBase {
     this.registerClick('#latin', () =>
       this.#router.navigateTo('/latin-translator')
     );
-    this.registerClick('#register', () => this.#router.navigateTo('/register'));
-    this.registerClick('#signin', () => this.#router.navigateTo('/sign-in'));
   }
 }
 
