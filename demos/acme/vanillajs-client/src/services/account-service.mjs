@@ -2,27 +2,25 @@ const storageKey = 'xyz';
 import { decode } from './token.mjs';
 
 export class AccountService {
-  //TODO: Make these private.
-  rootUrl='';
-  fetch = () => {throw new Error('No fetch!');}
+  #httpClient = undefined;
+  #securityService = undefined;
 
-  constructor({fetch,rootUrl}) {
-    this.rootUrl = rootUrl;
-    this.fetch=fetch;
+  constructor({ httpClient, securityService }) {
+    this.#httpClient = httpClient;
+    this.#securityService = securityService;
   }
 
   get url() {
-    return `${this.rootUrl}/authenticationrequests`;
+    return `/authenticationrequests`;
   }
 
   async login(model) {
-    const method = 'POST';
-    const body = JSON.stringify(model);
-    const headers = { 'Content-Type': 'application/json' };
-    const response = await this.fetch(this.url, { method, body, headers });
-    const info = await response.json();
+    const info = await this.#httpClient.post(this.url, model);
     const token = info.token;
+    console.log(`Here's the token: ${token}`);
     const tokenInfo = decode(token);
+
+    console.log(`Here's the info: ${JSON.stringify(tokenInfo)}`);
   }
 
   async logout(username, password) {}

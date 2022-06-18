@@ -58,10 +58,10 @@ export class App {
     let services = {
       routes: this.#routes,
       localStorageService: new LocalStorageService(),
-      fetch: this.#window.fetch, //TODO:Get rid of this one.
-      _fetch: this.#window.fetch,
+      _fetch: this.#window.fetch.bind(this.#window),
       translationService: new TranslationService(),
       securityService: new SecurityService(),
+      rootUrl:this.#apiUrl,
     };
 
     services = {

@@ -1,10 +1,11 @@
 export class HttpClient {
-  #rootUrl = 'https://localhost:7232';
-
-  constructor({ rootUrl }) {
-    //TODO: Inject fetch.
-    //this.#rootUrl = rootUrl;
-    //this.#securityService = securityService;
+  #rootUrl = undefined;
+  #fetch = () => {throw new Error('No fetch!');}
+  #securityService = undefined;
+  constructor({ rootUrl,_fetch,securityService }) {
+    this.#rootUrl = rootUrl;
+    this.#securityService = securityService;
+    this.#fetch=_fetch;
   }
 
   // getTokenHeader(){
@@ -26,7 +27,7 @@ export class HttpClient {
 
   async get(relativeUrl) {
     const url = this._getUrl(relativeUrl);
-    const response = await fetch(url);
+    const response = await this.#fetch(url);
     return await response.json();
   }
 
