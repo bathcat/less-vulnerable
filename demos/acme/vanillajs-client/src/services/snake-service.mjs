@@ -30,6 +30,18 @@ export class SnakeService {
     return;
   }
 
+  async create(snake) {
+    const url = this.getUrl();
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(snake),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    //TODO: Make sure things went ok.
+    return;
+  }
+
   async delete(snakeId) {
     const url = this.getUrl(snakeId);
     const response = await fetch(url, { method: 'DELETE' });

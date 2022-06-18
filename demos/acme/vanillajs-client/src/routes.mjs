@@ -20,13 +20,13 @@ export const routes = [
     getTemplate: () => '<avc-snake-list></avc-snake-list>',
   },
   {
+    path: '/snakes/create',
+    getTemplate: () => `<avc-snake-builder></avc-snake-builder>`,
+  },
+  {
     path: '/snakes/:id',
     getTemplate: ({ id }) =>
       `<avc-snake-editor snakeID='${id}'></avc-snake-editor>`,
-  },
-  {
-    path: '/snakes/create',
-    getTemplate: () => `<avc-snake-editor></avc-snake-editor>`,
   },
   {
     path: 404,

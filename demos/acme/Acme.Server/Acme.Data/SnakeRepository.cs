@@ -22,7 +22,7 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
     //TODO: Create with a sproc.
 
 
-    public Task<SnakeInfo> Create(SnakeInfo original) => this.Create_SqlRaw(original);
+    public Task<SnakeInfo> Create(SnakeInfo original) => this.Create_EF(original);
 
     private async Task<SnakeInfo> Create_EF(SnakeInfo original)
     {
@@ -33,10 +33,11 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
 
     private async Task<SnakeInfo> Create_SqlRaw(SnakeInfo original)
     {
+        //TODO: This is borked up.
         var sql =
             $@"
             INSERT [App].[Snake]
-            VALUES ('{original.ID}', '{original.Name}', '{original.Color}',{original.MeannessLevel});";
+            VALUES ('{original.ID}', '{original.Name}', '{original.Color}',{original.MeannessLevel}, '{original.PayGrade}');";
 
         var _ = await this.Database.ExecuteSqlRawAsync(sql);
         return await this.Snakes.SingleAsync(s => s.ID == original.ID);
@@ -49,7 +50,7 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
         command.CommandText =
             $@"
             INSERT [App].[Snake]
-            VALUES (@id, @name, @color,@meanness);";
+            VALUES (@id, @name, @color,@meanness,@paygrade);";
 
         var idParameter = command.CreateParameter();
         idParameter.ParameterName = "id";
@@ -74,6 +75,13 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
         meannessParameter.Value = original.MeannessLevel;
         meannessParameter.DbType = System.Data.DbType.Int32;
         command.Parameters.Add(meannessParameter);
+
+        var payGradeParameter = command.CreateParameter();
+        payGradeParameter.ParameterName = "paygrade";
+        payGradeParameter.Value = original.PayGrade;
+        payGradeParameter.DbType = System.Data.DbType.String;
+        command.Parameters.Add(payGradeParameter);
+
 
         await connection.OpenAsync();
         var _ = await command.ExecuteNonQueryAsync();
