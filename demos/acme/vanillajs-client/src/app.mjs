@@ -12,7 +12,7 @@ import { build as latinTranslator } from './components/latin-translator/latin-tr
 import { build as page } from './components/page/page.component.mjs';
 import { build as error } from './components/error/error.component.mjs';
 
-import { ElementBuilder } from './element-builder.mjs';
+import { ElementBuilder } from './infrastructure/element-builder.mjs';
 import { Router } from './services/router.mjs';
 import { SnakeService } from './services/snake-service.mjs';
 import { TranslationService } from './services/translation-service.mjs';

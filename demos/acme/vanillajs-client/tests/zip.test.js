@@ -1,4 +1,4 @@
-import { zip } from '../src/tools.mjs';
+import { zip } from '../src/infrastructure/zip.mjs';
 import { expect, test } from '@jest/globals';
 
 test('zip should return an empty array for two empty arrays', () => {

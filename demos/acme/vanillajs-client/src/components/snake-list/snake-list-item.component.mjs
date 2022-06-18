@@ -1,4 +1,4 @@
-import { buildTemplate } from '../../element-builder.mjs';
+import { buildTemplate } from '../../infrastructure/element-builder.mjs';
 import { component } from '../../component-base.mjs';
 
 export const trTemplate = `

@@ -1,4 +1,4 @@
-import { zip } from '../tools.mjs';
+import { zip } from '../infrastructure/zip.mjs';
 
 export const _getSegments = urlLike => urlLike.split('/');
 
