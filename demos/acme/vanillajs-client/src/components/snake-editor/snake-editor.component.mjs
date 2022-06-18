@@ -13,7 +13,7 @@ export class SnakeEditorComponent extends ComponentBase {
     super(template);
     this.#snakeService = snakeService;
     this.#router = router;
-    this._bindInputProperties(['name', 'color', 'meannessLevel', 'payGrade']);
+    this._bindInputProperties('name', 'color', 'meannessLevel', 'payGrade');
     this._bindClickHandlers('save', 'cancel');
   }
 

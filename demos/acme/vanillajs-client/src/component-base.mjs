@@ -21,9 +21,8 @@ export const component = base =>
       element.addEventListener('click', () => this[id]());
     }
 
-    _bindClickHandlers(...ids) {
+    _bindClickHandlers = (...ids) =>
       ids.forEach(id => this._bindClickHandler(id));
-    }
 
     //Adds a property with the specified name,
     // binding it to the value of an <input> element
@@ -40,9 +39,8 @@ export const component = base =>
       });
     }
 
-    _bindInputProperties(ids) {
+    _bindInputProperties = (...ids) =>
       ids.forEach(id => this._bindInputProperty(id));
-    }
   };
 
 export class ComponentBase extends component(HTMLElement) {
