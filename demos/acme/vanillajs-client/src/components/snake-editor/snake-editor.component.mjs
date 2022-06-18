@@ -1,14 +1,14 @@
 import { ComponentBase } from '../../component-base.mjs';
 
-export class SnakeDetailsComponent extends ComponentBase {
+export class SnakeEditorComponent extends ComponentBase {
   static Tag = 'avc-snake-editor';
   #snakeService = undefined;
   #router = undefined;
 
   constructor(
-    template = SnakeDetailsComponent.Template,
-    snakeService = SnakeDetailsComponent.Services.snakeService,
-    router = SnakeDetailsComponent.Services.router
+    template = SnakeEditorComponent.Template,
+    snakeService = SnakeEditorComponent.Services.snakeService,
+    router = SnakeEditorComponent.Services.router
   ) {
     super(template);
     this.#snakeService = snakeService;
@@ -68,4 +68,4 @@ export class SnakeDetailsComponent extends ComponentBase {
 }
 
 export const build = builder =>
-  builder.buildComponent(SnakeDetailsComponent, import.meta.url);
+  builder.buildComponent(SnakeEditorComponent, import.meta.url);
