@@ -29,7 +29,7 @@ export const component = base =>
     // with a matching id.
     _bindInputProperty(id) {
       const element = this.querySelector(`#${id}`);
-      Object.defineProperty(this, id, {
+      Object.defineProperty(this, `_${id}`, {
         get() {
           return element.value;
         },
@@ -41,6 +41,27 @@ export const component = base =>
 
     _bindInputProperties = (...ids) =>
       ids.forEach(id => this._bindInputProperty(id));
+
+    //Adds a property called 'model' that takes
+    // an object with the specified fields, mapping them
+    // to input elements with matching ids.
+    _bindInputModel(...fields) {
+      this._bindInputProperties(...fields);
+      Object.defineProperty(this, 'model', {
+        get() {
+          const model={};
+          for(let field of fields){
+            model[field]=this[`_${field}`];
+          }
+          return model;
+        },
+        set(model={}) {
+          for(let field of fields){
+            this[`_${field}`]=model[field]??'';
+          }
+        },
+      });
+    }
   };
 
 export class ComponentBase extends component(HTMLElement) {

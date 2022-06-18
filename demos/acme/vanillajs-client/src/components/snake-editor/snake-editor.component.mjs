@@ -13,29 +13,25 @@ export class SnakeEditorComponent extends ComponentBase {
     super(template);
     this.#snakeService = snakeService;
     this.#router = router;
-    this._bindInputProperties('name', 'color', 'meannessLevel', 'payGrade');
+    this._bindInputModel('id', 'name', 'color', 'meannessLevel');
     this._bindClickHandlers('save', 'cancel');
   }
 
-  get key() {
-    //TODO: Something's weird here.
-    if (!this.hasAttribute('snakeID')) {
-      return null;
-    }
-    return this.getAttribute('snakeID');
+  get snakeID() {
+    const attribute = 'snakeID';
+    return this.hasAttribute(attribute) && this.getAttribute(attribute);
   }
 
   connectedCallback() {
-    if (!this.key) {
+    if (!this.snakeID) {
       this.model = {
         name: '',
         color: '',
         meannessLevel: 0,
-        payGrade: 'TBD',
       };
       return;
     }
-    this.#snakeService.getById(this.key).then(snake => {
+    this.#snakeService.getById(this.snakeID).then(snake => {
       this.model = snake;
     });
   }
@@ -47,23 +43,6 @@ export class SnakeEditorComponent extends ComponentBase {
 
   cancel() {
     this.#router.navigateTo('/snakes');
-  }
-
-  get model() {
-    return {
-      id: this.key,
-      name: this.name,
-      color: this.color,
-      meannessLevel: this.meannessLevel,
-      payGrade: this.payGrade,
-    };
-  }
-
-  set model(value) {
-    this.name = value.name;
-    this.color = value.color;
-    this.meannessLevel = value.meannessLevel;
-    this.payGrade = value.payGrade;
   }
 }
 
