@@ -11,4 +11,5 @@ test('decode should decode legit token', () => {
 
   //Assert
   expect(result).toBeTruthy();
+  expect(result.sub).toBe('jbloggs@example.com');
 });

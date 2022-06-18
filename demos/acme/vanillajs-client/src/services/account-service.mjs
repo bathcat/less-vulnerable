@@ -1,4 +1,5 @@
 const storageKey = 'xyz';
+import { decode } from './token.mjs';
 
 export class AccountService {
   constructor(rootUrl) {
@@ -11,12 +12,12 @@ export class AccountService {
 
   async login(model) {
     const method = 'POST';
-    const body = JSON.stringify( model);
+    const body = JSON.stringify(model);
     const headers = { 'Content-Type': 'application/json' };
     const response = await fetch(this.url, { method, body, headers });
     const info = await response.json();
-
-    console.log(`Response: ${JSON.stringify(info)}`);
+    const token = info.token;
+    const tokenInfo = decode(token);
   }
 
   async logout(username, password) {}
