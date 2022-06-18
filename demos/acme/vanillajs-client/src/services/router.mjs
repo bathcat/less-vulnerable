@@ -28,7 +28,8 @@ export function _matchRoute(url, route) {
 }
 
 export class Router {
-  constructor(routes) {
+  //#routes=[]; TODO: Make routes private.
+  constructor({ routes }) {
     this.routes = routes;
   }
 

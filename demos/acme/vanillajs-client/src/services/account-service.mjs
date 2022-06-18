@@ -2,8 +2,13 @@ const storageKey = 'xyz';
 import { decode } from './token.mjs';
 
 export class AccountService {
-  constructor(rootUrl) {
+  //TODO: Make these private.
+  rootUrl='';
+  fetch = () => {throw new Error('No fetch!');}
+
+  constructor({fetch,rootUrl}) {
     this.rootUrl = rootUrl;
+    this.fetch=fetch;
   }
 
   get url() {
@@ -14,7 +19,7 @@ export class AccountService {
     const method = 'POST';
     const body = JSON.stringify(model);
     const headers = { 'Content-Type': 'application/json' };
-    const response = await fetch(this.url, { method, body, headers });
+    const response = await this.fetch(this.url, { method, body, headers });
     const info = await response.json();
     const token = info.token;
     const tokenInfo = decode(token);

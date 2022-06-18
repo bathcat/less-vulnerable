@@ -1,51 +1,38 @@
 export class SnakeService {
-  constructor(rootUrl) {
-    this.rootUrl = rootUrl;
+  //TODO: Make these private.
+  rootUrl = '';
+  #httpClient = undefined;
+
+  constructor({ httpClient }) {
+    this.#httpClient = httpClient;
   }
 
-  getUrl(id) {
-    return `${this.rootUrl}/snakes/${id ?? ''}`;
+  _getUrl(id = '') {
+    return `/snakes/${id}`;
   }
 
-  async getAll() {
-    const url = `${this.rootUrl}/snakes/`;
-    const response = await fetch(url);
-    return await response.json();
+  getAll() {
+    const url = this._getUrl();
+    return this.#httpClient.get(url);
   }
 
-  async getById(id) {
-    const response = await fetch(this.getUrl(id));
-    return await response.json();
+  getById(id) {
+    const url = this._getUrl(id);
+    return this.#httpClient.get(url);
   }
 
-  async update(snake) {
-    const url = this.getUrl(snake.id);
-
-    const response = await fetch(url, {
-      method: 'PUT',
-      body: JSON.stringify(snake),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    //TODO: Make sure things went ok.
-    return;
+  update(snake) {
+    const url = this._getUrl(snake.id);
+    return this.#httpClient.put(url, snake);
   }
 
-  async create(snake) {
-    const url = this.getUrl();
-
-    const response = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(snake),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    //TODO: Make sure things went ok.
-    return;
+  create(snake) {
+    const url = this._getUrl();
+    return this.#httpClient.post(url, snake);
   }
 
-  async delete(snakeId) {
-    const url = this.getUrl(snakeId);
-    const response = await fetch(url, { method: 'DELETE' });
-    //TODO: Make sure things went ok.
-    return;
+  delete(snakeId) {
+    const url = this._getUrl(snakeId);
+    return this.#httpClient.delete(url);
   }
 }
