@@ -42,52 +42,56 @@ export class HttpClient {
 
   async put(relativeUrl, contents) {
     const url = this._getUrl(relativeUrl);
-    const headers = {
-      ...this.headersForContentType,
-      ...this.headersForAuthorization,
+    const options = {
+      method: 'PUT',
+      headers: {
+        ...this.headersForContentType,
+        ...this.headersForAuthorization,
+      },
+      body: JSON.stringify(contents),
     };
 
-    const body = JSON.stringify(contents);
-
-    const response = await this.#fetch(url, {
-      method: 'PUT',
-      body,
-      headers,
-    });
-
+    const response = await this.#fetch(url, options);
+    if (!response.ok) {
+      this.#errorService.showHttpError(response, options);
+      return;
+    }
     return await response.json();
   }
 
   async post(relativeUrl, contents) {
     const url = this._getUrl(relativeUrl);
-    const headers = {
-      ...this.headersForContentType,
-      ...this.headersForAuthorization,
-    };
-    const body = JSON.stringify(contents);
 
-    const response = await this.#fetch(url, {
+    const options = {
       method: 'POST',
-      body,
-      headers,
-    });
+      headers: {
+        ...this.headersForContentType,
+        ...this.headersForAuthorization,
+      },
+      body: JSON.stringify(contents),
+    };
 
+    const response = await this.#fetch(url, options);
+    if (!response.ok) {
+      this.#errorService.showHttpError(response, options);
+      return;
+    }
     return await response.json();
   }
 
   async delete(relativeUrl) {
     const url = this._getUrl(relativeUrl);
 
-    const options={
+    const options = {
       method: 'DELETE',
-      headers:{
-        ...this.headersForAuthorization
+      headers: {
+        ...this.headersForAuthorization,
       },
     };
 
-    const response = await this.#fetch(url,options);
+    const response = await this.#fetch(url, options);
     if (!response.ok) {
-      this.#errorService.showHttpError(response,options);
+      this.#errorService.showHttpError(response, options);
     }
     return;
   }
