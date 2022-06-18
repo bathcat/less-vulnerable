@@ -4,7 +4,7 @@ import { build as home } from './components/home/home.component.mjs';
 import { build as root } from './components/root/root.component.mjs';
 import { build as snakeList } from './components/snake-list/snake-list.component.mjs';
 import { build as snakeListItem } from './components/snake-list/snake-list-item.component.mjs';
-import { build as snakeDetails } from './components/snake-details/snake-details.component.mjs';
+import { build as snakeDetails } from './components/snake-editor/snake-editor.component.mjs';
 import { build as signIn } from './components/sign-in/sign-in.component.mjs';
 import { build as register } from './components/register/register.component.mjs';
 import { build as latinTranslator } from './components/latin-translator/latin-translator.component.mjs';

@@ -1,7 +1,7 @@
 import { ComponentBase } from '../../component-base.mjs';
 
 export class SnakeDetailsComponent extends ComponentBase {
-  static Tag = 'avc-snake-details';
+  static Tag = 'avc-snake-editor';
   #snakeService = undefined;
   #router = undefined;
 

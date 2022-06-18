@@ -22,11 +22,11 @@ export const routes = [
   {
     path: '/snakes/:id',
     getTemplate: ({ id }) =>
-      `<avc-snake-details snakeID='${id}'></avc-snake-details>`,
+      `<avc-snake-editor snakeID='${id}'></avc-snake-editor>`,
   },
   {
     path: '/snakes/create',
-    getTemplate: () => `<avc-snake-details></avc-snake-details>`,
+    getTemplate: () => `<avc-snake-editor></avc-snake-editor>`,
   },
   {
     path: 404,
