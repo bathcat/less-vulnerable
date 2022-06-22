@@ -19,10 +19,9 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
 
     ///////  Create  /////////
 
-    //TODO: Create with a sproc.
 
-
-    public Task<SnakeInfo> Create(SnakeInfo original) => this.Create_EF(original);
+    public Task<SnakeInfo> Create(SnakeInfo original)
+        => this.Create_SqlRaw(original);
 
     private async Task<SnakeInfo> Create_EF(SnakeInfo original)
     {
@@ -33,10 +32,9 @@ public class SnakeRepository : IRepository<SnakeInfo, Guid>
 
     private async Task<SnakeInfo> Create_SqlRaw(SnakeInfo original)
     {
-        //TODO: This is borked up.
         var sql =
             $@"
-            INSERT [App].[Snake]
+            INSERT [App].[{nameof(SnakeInfo)}]
             VALUES ('{original.ID}', '{original.Name}', '{original.Color}',{original.MeannessLevel}, '{original.PayGrade}');";
 
         var _ = await this.Database.ExecuteSqlRawAsync(sql);

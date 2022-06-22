@@ -1,5 +1,4 @@
 ﻿using Acme.Core;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,15 +20,15 @@ public class SnakesController : ControllerBase
     [HttpGet("{id}")]
     public Task<SnakeInfo?> Get(Guid id) => this.service.Get(id);
 
-    [Authorize(AuthenticationSchemes = "JwtBearer")]
+    //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpPost()]
     public Task<SnakeInfo> Post(Snake value) => this.service.Create(value);
 
-    [Authorize(AuthenticationSchemes = "JwtBearer")]
+    //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpPut("{id}")]
     public Task<SnakeInfo> Put(Guid id, [FromBody] Snake value) => this.service.Update(value);
 
-    [Authorize(AuthenticationSchemes = "JwtBearer")]
+    //[Authorize(AuthenticationSchemes = "JwtBearer")]
     [HttpDelete("{id}")]
     public Task<SnakeInfo?> Delete(Guid id) => this.service.Remove(id);
 }
