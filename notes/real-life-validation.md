@@ -15,6 +15,9 @@ public class SnakeInfo
 	[MaxLength(5)]
 	[MinLength(1)]
 	public string Name { get; init; } = String.Empty;
+	
+	[ClassicMovie]
+	public string FavoriteMove { get; init; } = String.Empty;
 }
 
 ```
@@ -22,7 +25,7 @@ public class SnakeInfo
 #### Thoughts
 * Pros
   - Simple
-  - Native
+  - Native - microsoft
 * Cons
   - Mixes burdens
   - Doesn't scale with complex models
@@ -68,7 +71,8 @@ public Task<SnakeInfo> Post(Snake value)
   - Better seperation of concerns
 * Cons
   - One more dependency
-  - Not very composable
+  - Not very composable / testable
+  
 
 
 
@@ -125,6 +129,34 @@ public class SnakeModelValidator : IModelValidator
   - Seperation of concerns
   - Composable
   - Testable
+  - No new dependency
 * Cons 
   - Smaller pieces
   - More thinking
+  - Not invented here
+    * roll your own emailvalidator -- stackoverflow 
+	* leverage built-in microsoft stuff
+  
+  
+```csharp
+
+
+public static bool isNameNotTooLong(Snake snake){
+  return snake.Name.Length < 10;
+}
+
+public static bool isNameValidFormat(Snake snake){
+  return //regex
+}
+
+public static bool isNameNotNull(Snake snake){
+  return //regex
+}
+
+public static bool isNameOk(Snake snake){
+  return  isNameNotNull(snake) and	isNameNotNull(
+}
+
+
+
+```
