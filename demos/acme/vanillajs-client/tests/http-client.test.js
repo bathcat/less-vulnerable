@@ -16,7 +16,13 @@ import { expect, test } from '@jest/globals';
 
   const client = new HttpClient({
     rootUrl:'http://example.com',
-    securityService:{ token },
+    securityService:{ 
+      loginInfo$:{
+        value:{
+          token
+        }
+      },
+    },
     _fetch:fakeFetch,
   });
 
